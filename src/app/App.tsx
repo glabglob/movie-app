@@ -1,11 +1,15 @@
-import React from 'react';
-import './App.css';
+import { BrowserRouter } from "react-router-dom";
+import Body from "../components/layout/body/Body";
+import Footer from "../components/layout/footer/Footer";
+import Header from "../components/layout/header/Header";
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-
-    </div>
+    <BrowserRouter>
+      <Header />
+      <Body />
+      {/* <Footer /> */}
+    </BrowserRouter>
   );
 }
 
