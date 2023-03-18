@@ -28,6 +28,8 @@ API wich i used [**WeatherAPI**](https://www.weatherapi.com/)
 
 [**React Icons**](https://react-icons.github.io/react-icons/)
 
+[**React Slick**](https://react-slick.neostack.com/)
+
 
 ## Design idea 
 
