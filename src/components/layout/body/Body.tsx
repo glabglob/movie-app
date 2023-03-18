@@ -1,9 +1,10 @@
+
 import './body.scss';
 
 const Body: React.FC = () => {
     return (
-        <div>
-
+        <div className="">
+            BODY
         </div>
     );
 }

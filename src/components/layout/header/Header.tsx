@@ -1,9 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
-import { NavLink, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import { FaSearch } from 'react-icons/fa';
+import { NavLink } from 'react-router-dom';
 
 import AppContainer from '../../container/AppContainer';
-import SearchResult from '../../search-result/SearchResult';
+import SearchBar from '../../searchBar/SearchBar';
 
 import logo from './logo.png';
 import './header.scss';
@@ -18,64 +17,10 @@ const Header: React.FC = () => {
     //menu
     const [menuActive, setMenuActive] = useState(false);
 
-    //search
-    const navigate = useNavigate();
-    const location = useLocation();
-    const [params, _] = useSearchParams();
-
-    const [isSearchFocused, setSearchFocus] = useState(false);
-    const [pathname, setPathname] = useState('')
-    const [keyword, setKeyword] = useState('');
-
-    const pathnameRef = useRef('');
-    const defaultKeyword = useRef('');
-    const searchRef = useRef<HTMLInputElement>(null)
-
-    useEffect(() => {
-        window.addEventListener('click', onWindowClick)
-
-        return () => {
-            window.removeEventListener('click', onWindowClick)
-        }
-    }, [])
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
     }, [userScrollPosition]);
-
-    useEffect(() => {
-        setPathname(location.pathname)
-        pathnameRef.current = location.pathname
-        defaultKeyword.current = params.get('q') || ''
-        initKeyword()
-    }, [location.pathname])
-
-    const goToSearchPage = () => {
-        if (keyword) {
-            defaultKeyword.current = keyword
-            navigate(`/search?q=${keyword}`)
-            setSearchFocus(false)
-            searchRef.current?.blur()
-        }
-    }
-
-    const onSubmitHendler: React.FormEventHandler<HTMLFormElement> = (e) => {
-        e.preventDefault();
-        goToSearchPage();
-    }
-
-    const initKeyword = () => {
-        if (pathnameRef.current === '/search') {
-            setKeyword(defaultKeyword.current)
-        } else {
-            setKeyword('')
-        }
-    }
-
-    const onWindowClick = () => {
-        setSearchFocus(false)
-        initKeyword()
-    }
 
     const handleScroll = () => {
         const scrollPosition = document.documentElement.scrollTop;
@@ -147,28 +92,7 @@ const Header: React.FC = () => {
                     </ul>
                 </div>
                 {/* search form */}
-                <div className="header__navigation-search">
-                    <form className='header__navigation-form'
-                        onSubmit={onSubmitHendler}
-                    >
-                        <input className='header__navigation-input'
-                            type="text"
-                            placeholder='Search or jump to...'
-                            name="q"
-                            autoComplete='off'
-                            value={keyword}
-                            onInput={e => setKeyword(e.currentTarget.value)}
-                            onClick={e => {
-                                e.stopPropagation()
-                                setSearchFocus(true)
-                            }}
-                        />
-                    </form>
-                    {
-                        isSearchFocused ?
-                            (<SearchResult keyword={keyword} goToSearchPage={goToSearchPage}></SearchResult>) : (' ')
-                    }
-                </div>
+                <SearchBar />
             </AppContainer>
         </header>
 
