@@ -1,0 +1,28 @@
+.slick__hero {
+    max-width: 100%;
+    box-shadow: 0px 0px 15px 10px #151515;
+
+    .slick-prev {
+        z-index: 4;
+        left: 25px;
+    }
+
+    .slick-next {
+        z-index: 4;
+        right: 25px;
+    }
+}
+
+.slick__cards {
+    max-width: 100%;
+
+    .slick-prev {
+        z-index: 4;
+        left: 25px;
+    }
+
+    .slick-next {
+        z-index: 4;
+        right: 25px;
+    }
+}

@@ -59,7 +59,7 @@ const Header: React.FC = () => {
                     <span></span>
                 </div>
                 {/* navigation */}
-                <div className={`header__navigation ${menuActive ? 'active-menu' : ''}`}>
+                <nav className={`header__navigation ${menuActive ? 'active-menu' : ''}`}>
                     <ul className="header__navigation-list">
                         <li className='header__navigation-list_item'>
                             <NavLink to={'/movies'}
@@ -90,7 +90,7 @@ const Header: React.FC = () => {
                             </NavLink>
                         </li>
                     </ul>
-                </div>
+                </nav>
                 {/* search form */}
                 <SearchBar />
             </AppContainer>

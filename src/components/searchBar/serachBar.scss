@@ -98,12 +98,12 @@
         }
 
         @media screen and (max-width: 479.98px) {
-            margin-right: 20px;
+            margin-right: 10px;
         }
 
         @media screen and (max-width: 390.98px) {
             width: 250px;
-            margin-right: 15px;
+            margin-right: 0px;
         }
 
         @media screen and (max-width: 320.98px) {
@@ -115,7 +115,7 @@
         position: relative;
         width: 100%;
         margin-top: 8px;
-        margin-right: 35px;
+        margin-right: 25px;
 
         @media screen and (max-width: 991.98px) {
             order: 2;
