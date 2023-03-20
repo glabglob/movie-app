@@ -19,21 +19,21 @@ const SliderComponent: React.FC<SliderComponentProps> = (props: SliderComponentP
         settings = {
             ...settings,
             slidesToShow: 5,
-            slidesToScroll: 5,
+            slidesToScroll: 1,
             swipe: true,
             responsive: [
                 {
                     breakpoint: 992,
                     settings: {
                         slidesToShow: 3,
-                        slidesToScroll: 3,
+                        slidesToScroll: 1,
                     },
                 },
                 {
                     breakpoint: 480,
                     settings: {
                         slidesToShow: 2,
-                        slidesToScroll: 2,
+                        slidesToScroll: 1,
                     },
                 },
                 {

@@ -77,8 +77,6 @@ const HomePage: React.FC = () => {
                     <h2>In cinema</h2>
                     <SliderComponent
                         autoplay={true}
-                        slidesToShow={5}
-                        slidesToScroll={5}
                         clazz='slick__cards'
                     >
                         {inCinema.map((film, i) => (
@@ -112,7 +110,6 @@ const HomePage: React.FC = () => {
                     <h2>top rated tv's</h2>
                     <SliderComponent
                         autoplay={true}
-
                         clazz='slick__cards'
                     >
                         {topRatedTv.map((film, i) => (
@@ -124,7 +121,6 @@ const HomePage: React.FC = () => {
                     <h2>top rated movies</h2>
                     <SliderComponent
                         autoplay={true}
-
                         clazz='slick__cards'
                     >
                         {topRatedMovie.map((film, i) => (
