@@ -1,4 +1,5 @@
 import { ReactNode } from "react"
+import { MediaType } from "./types"
 
 export interface AppContainerProps {
     children?: ReactNode
@@ -11,10 +12,12 @@ export interface SearchResultProps {
 }
 
 export interface Season {
-    id: number
+    id: number,
+    seasonNumber: number
 }
 
 export interface Film {
+    mediaType: MediaType
     id: number
     title: string
     description: string
@@ -22,4 +25,10 @@ export interface Film {
     cover: string
     genreIds: number[]
     seasons: Season[]
+}
+
+export interface Cast {
+    id: number,
+    actorName: string,
+    charName: string,
 }

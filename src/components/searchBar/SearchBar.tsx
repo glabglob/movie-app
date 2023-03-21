@@ -70,6 +70,7 @@ const SearchBar: React.FC = () => {
 
         for (let i = 0; i < 5; i++) {
             arr.push({
+                mediaType: 'tv',
                 id: i,
                 title: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero nihil dolorum eaque nemo quibusdam atque deserunt nisi ad quae beatae aliquid, itaque dignissimos odit, nam voluptatem unde tempora dolore modi. Dolor eveniet, porro nulla consequuntur quis vitae culpa veritatis quas numquam voluptas, maxime corrupti quod velit eius. Aspernatur, iusto fugit.',
                 description: '',
@@ -112,12 +113,12 @@ const SearchBar: React.FC = () => {
                                 <div className="search__result-content"
                                     key={i}
                                 >
-                                    <div className="search__result-img_container">
+                                    <figure className="search__result-img_container">
                                         <img className='search__result-img'
                                             src={tmbnl}
                                             alt="Thumbnail"
                                         />
-                                    </div>
+                                    </figure>
                                     <div className="search__result-info">
                                         <p className="search__result-title">{film.title}</p>
                                         <ul className='search__result-genres'>

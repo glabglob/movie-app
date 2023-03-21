@@ -17,10 +17,10 @@ const SliderComponent: React.FC<SliderComponentProps> = (props: SliderComponentP
 
     if (props.clazz === 'slick__cards') {
         settings = {
-            ...settings,
             slidesToShow: 5,
             slidesToScroll: 1,
             swipe: true,
+            ...settings,
             responsive: [
                 {
                     breakpoint: 992,
@@ -46,6 +46,39 @@ const SliderComponent: React.FC<SliderComponentProps> = (props: SliderComponentP
             ]
         }
     }
+
+    if (props.clazz === 'slick__scroll') {
+        settings = {
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            swipeToSlide: true,
+            infinite: true,
+            autoplaySpeed: 2000,
+            ...settings,
+            responsive: [
+                {
+                    breakpoint: 1025,
+                    settings: {
+                        slidesToShow: 3,
+                    },
+                },
+                {
+                    breakpoint: 992,
+                    settings: {
+                        slidesToShow: 2,
+                    },
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                    },
+                }
+            ]
+        }
+    }
+
 
     return (
         <Slick
