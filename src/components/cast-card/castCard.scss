@@ -1,7 +1,6 @@
-.movie__card {
-    max-width: 350px;
-    width: 100%;
-    padding: 20px 60px;
+.cast__card {
+    width: 70%;
+    padding: 20px 15px;
     cursor: pointer;
     margin: 0 auto;
 
@@ -24,16 +23,19 @@
         box-shadow: 0px 0px 15px 10px #151515;
     }
 
-    &-title {
-        padding: 15px;
-        color: #fff;
+    &-info {
+        text-align: center;
     }
-}
 
-.trailers {
-    min-width: 350px;
+    &-actorName {
+        padding: 15px 0px 0px 0px;
+        color: #fff;
+        font-size: 20px;
+        font-weight: 700;
+    }
 
-    @media screen and (max-width: 1440.98px) {
-        min-width: 100%;
+    &-charName {
+        padding: 15px 0px 0px 0px;
+        color: #fff;
     }
 }

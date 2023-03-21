@@ -2,8 +2,13 @@
     position: absolute;
     top: 35px;
     border-radius: 6px;
-    overflow: hidden;
+    overflow-y: scroll;
     width: 86%;
+    max-height: 450px;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 
     &-content {
         display: flex;
@@ -12,7 +17,7 @@
         padding: 10px;
         border-radius: 8px;
         cursor: pointer;
-        background-color: #151515;
+        background-color: #343434;
 
         &:hover {
             background-color: #ff0000;
@@ -23,7 +28,7 @@
 
     &-img_container {
         min-width: 60px;
-        background-color: #343434;
+        background-color: #151515;
         border-radius: 8px;
         overflow: hidden;
     }
@@ -71,7 +76,7 @@
         text-transform: uppercase;
         text-align: center;
         border: none;
-        background: #151515;
+        background: #343434;
 
         &:hover {
             opacity: 0.7;

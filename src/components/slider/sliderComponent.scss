@@ -26,3 +26,19 @@
         right: 25px;
     }
 }
+
+.slick__scroll {
+    max-width: 100%;
+
+    .slick-prev {
+        &::before {
+            display: none;
+        }
+    }
+
+    .slick-next {
+        &::before {
+            display: none;
+        }
+    }
+}
