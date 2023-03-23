@@ -1,7 +1,9 @@
-import { useNavigate } from "react-router-dom";
 import { Film } from "../../interfaces";
 
-import tmbnl from './tmbnl.jpg';
+import { useNavigate } from "react-router-dom";
+
+import ImageContainer from "../image-container/ImageContainer";
+
 import './trendingHero.scss';
 
 interface TrendingHeroProps {
@@ -16,17 +18,23 @@ const TrendingHero: React.FC<TrendingHeroProps> = (props: TrendingHeroProps) => 
     const navigate = useNavigate();
 
     return (
-        <div className="trendings__content" onClick={() => (props.onClick ? props.onClick() : '')}>
-            <div className="trendings__content-img_container">
-                <img className='trendings__content-img'
-                    src={tmbnl}
-                    alt="Thumbnail"
-                />
-            </div>
-            <div className="trendings__content-info">
-                <p className="trendings__content-title">{props.title}</p>
-                <p className='trendings__content-description'>{props.description}</p>
-            </div>
+        <div
+            className="trendings__content"
+            onClick={() => (props.onClick ? props.onClick() : '')}
+        >
+            <ImageContainer
+                clazz={'trendings__cover'}
+                imgSrc={props.image}
+                alt={props.title}
+            />
+            <article className="trendings__content-info">
+                <p className="trendings__content-title">
+                    {props.title}
+                </p>
+                <p className='trendings__content-description'>
+                    {props.description}
+                </p>
+            </article>
         </div>
     );
 }

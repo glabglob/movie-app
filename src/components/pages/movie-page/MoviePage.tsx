@@ -6,10 +6,11 @@ import { useState, useEffect } from 'react';
 
 import AppContainer from "../../container/AppContainer";
 import SliderComponent from "../../slider/SliderComponent";
+import ImageContainer from "../../image-container/ImageContainer";
 import CastCard from "../../cast-card/CastCard";
 import MovieCard from "../../movie-card/MovieCard";
+import TrailerCard from "../../trailer-card/TrailerCard";
 
-import tmbnl from './tmbnl.jpg';
 import './moviePage.scss';
 
 interface MoviePageProps {
@@ -62,8 +63,8 @@ const MoviePage: React.FC<MoviePageProps> = (props: MoviePageProps) => {
         for (let i = 0; i < 20; i++) {
             arr.push({
                 id: i,
-                actorName: 'Actor Name',
-                charName: 'Character Name',
+                actorName: "Leonardo DiCaprio",
+                charName: "Jordan Belfort",
             })
         }
         setCasts(arr);
@@ -97,31 +98,28 @@ const MoviePage: React.FC<MoviePageProps> = (props: MoviePageProps) => {
     return (
         <main>
             <section className="movie__hero">
-                <figure className="img__container">
-                    <img className='img__container-img'
-                        src={tmbnl}
-                        alt="Thumbnail"
-                    />
-                </figure>
+                <ImageContainer
+                    imgSrc={''}
+                    alt={film.title}
+                    clazz='movie__hero-img'
+                />
             </section>
             <AppContainer>
                 <section className="section movie__poster">
-                    <figure className="movie__poster-img__container">
-                        <img className='movie__poster-img'
-                            src={tmbnl}
-                            alt="Thumbnail"
-
-                        />
-                        <figcaption className="movie__poster-info">
-                            <h3 className="movie__poster-title">{film.title}</h3>
-                            <ul className="movie__poster-genres">
-                                {film.genreIds.map((genre, i) => (
-                                    <li key={i} className="movie__poster-genres_items">item {genre}</li>
-                                ))}
-                            </ul>
-                            <p className="movie__poster-description">{film.description}</p>
-                        </figcaption>
-                    </figure>
+                    <ImageContainer
+                        imgSrc={''}
+                        alt={film.title}
+                        clazz='poster'
+                    />
+                    <article className="movie__poster-info">
+                        <h3 className="movie__poster-title">{film.title}</h3>
+                        <ul className="movie__poster-genres">
+                            {film.genreIds.map((genre, i) => (
+                                <li key={i} className="movie__poster-genres_items">item {genre}</li>
+                            ))}
+                        </ul>
+                        <p className="movie__poster-description">{film.description}</p>
+                    </article>
                 </section>
                 <section className="section movie__casts">
                     <h2>casts</h2>
@@ -131,7 +129,7 @@ const MoviePage: React.FC<MoviePageProps> = (props: MoviePageProps) => {
                     >
                         {
                             casts.map((cast, i) => (
-                                <CastCard image='' actorName="Leonardo DiCaprio" charName="Jordan Belfort" key={i} />
+                                <CastCard image='' actorName={cast.actorName} charName={cast.charName} key={i} />
                             ))
                         }
                     </SliderComponent>
@@ -140,11 +138,11 @@ const MoviePage: React.FC<MoviePageProps> = (props: MoviePageProps) => {
                     <h2>trailers</h2>
                     <SliderComponent
                         clazz={"slick__scroll"}
-                        autoplay={true}
+                        autoplay={false}
                     >
                         {
                             trailers.map((trailers, i) => (
-                                <MovieCard clazz="trailers" image='' title='' key={i} />
+                                <TrailerCard clazz="" image='' title={trailers.title} key={i} />
                             ))
                         }
                     </SliderComponent>
@@ -159,7 +157,7 @@ const MoviePage: React.FC<MoviePageProps> = (props: MoviePageProps) => {
                     >
                         {
                             film.seasons.map((seasons, i) => (
-                                <MovieCard clazz={'seasons'} image='' title={`Season ${seasons.seasonNumber}`} key={i} />
+                                <MovieCard clazz='' image='' title={`Season ${seasons.seasonNumber}`} key={i} />
                             ))
                         }
                     </SliderComponent>
@@ -179,7 +177,7 @@ const MoviePage: React.FC<MoviePageProps> = (props: MoviePageProps) => {
                     </SliderComponent>
                 </section>
             </AppContainer>
-        </main>
+        </main >
     );
 }
 

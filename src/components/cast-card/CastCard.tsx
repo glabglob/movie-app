@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
-import ldcp from './actor.jpg';
 
+import actr from './actor.jpg';
 import './castCard.scss';
 
 
@@ -20,7 +20,7 @@ const CastCard: React.FC<CastCardProps> = (props: CastCardProps) => {
         <div className="cast__card" onClick={() => (props.onClick ? props.onClick() : '')}>
             <figure className="cast__card-img_container">
                 <img className='cast__card-img'
-                    src={ldcp}
+                    src={''}
                     alt="Thumbnail"
                 />
                 <figcaption className="cast__card-info">
