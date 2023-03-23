@@ -4,7 +4,7 @@ import { useRef } from 'react';
 
 import { Film } from '../../interfaces';
 
-import tmbnl from './tmbnl.jpg';
+import ImageContainer from '../image-container/ImageContainer';
 import './serachBar.scss';
 
 const SearchBar: React.FC = () => {
@@ -113,18 +113,21 @@ const SearchBar: React.FC = () => {
                                 <div className="search__result-content"
                                     key={i}
                                 >
-                                    <figure className="search__result-img_container">
-                                        <img className='search__result-img'
-                                            src={tmbnl}
-                                            alt="Thumbnail"
-                                        />
-                                    </figure>
+                                    <ImageContainer
+                                        clazz={'search__result-img'}
+                                        imgSrc={''}
+                                        alt={film.title}
+                                    />
                                     <div className="search__result-info">
-                                        <p className="search__result-title">{film.title}</p>
+                                        <p className="search__result-title">
+                                            {film.title}
+                                        </p>
                                         <ul className='search__result-genres'>
                                             {
                                                 film.genreIds.map(() => (
-                                                    <li key={i}>item {i}</li>
+                                                    <li key={i}>
+                                                        item {i}
+                                                    </li>
                                                 ))
                                             }
                                         </ul>
