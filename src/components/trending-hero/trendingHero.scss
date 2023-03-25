@@ -4,6 +4,7 @@
     width: 100%;
 
     h2 {
+        letter-spacing: 2px;
         padding: 23px 0px 20px 0px;
     }
 
@@ -53,6 +54,7 @@
             font-size: 40px;
             line-height: 36px;
             padding: 20px 0px;
+            letter-spacing: 2px;
             text-overflow: ellipsis;
             -webkit-line-clamp: 1;
             -webkit-box-orient: vertical;
@@ -68,9 +70,9 @@
                 line-height: 0px;
             }
 
-            @media screen and (max-width: 390.98px) {
-                font-size: 18px;
-            }
+            // @media screen and (max-width: 390.98px) {
+            //     font-size: 18px;
+            // }
         }
 
         &-description {
@@ -80,6 +82,7 @@
             line-height: 20px;
             text-overflow: ellipsis;
             white-space: normal;
+            letter-spacing: 1px;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;

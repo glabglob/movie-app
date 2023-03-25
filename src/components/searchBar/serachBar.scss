@@ -58,28 +58,9 @@
         font-size: 14px;
         line-height: 20px;
     }
-
-    &-button {
-        width: 100%;
-        padding: 6px;
-        border-radius: 8px;
-        color: #fff;
-        cursor: pointer;
-        font-weight: 700;
-        text-transform: uppercase;
-        text-align: center;
-        border: none;
-        background: #343434;
-
-        &:hover {
-            background-color: #151515;
-        }
-
-    }
 }
 
 .header__navigation {
-
 
     &-search {
         display: flex;

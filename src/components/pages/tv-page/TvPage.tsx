@@ -11,13 +11,13 @@ import CastCard from "../../cast-card/CastCard";
 import MovieCard from "../../movie-card/MovieCard";
 import TrailerCard from "../../trailer-card/TrailerCard";
 
-import './moviePage.scss';
+import './tvPage.scss';
 
-interface MoviePageProps {
-    type: MediaType
+interface TvPageProps {
+    type : MediaType
 }
 
-const MoviePage: React.FC<MoviePageProps> = (props: MoviePageProps) => {
+const TvPage: React.FC<TvPageProps> = (props: TvPageProps) => {
 
     const { params } = useParams();
     const [casts, setCasts] = useState<Cast[]>([]);
@@ -75,7 +75,7 @@ const MoviePage: React.FC<MoviePageProps> = (props: MoviePageProps) => {
 
         for (let i = 0; i < 5; i++) {
             arr.push({
-                mediaType: 'movie',
+                mediaType: 'tv',
                 id: i,
                 title: 'Some Title',
                 description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero nihil dolorum eaque nemo quibusdam atque deserunt nisi ad quae beatae aliquid, itaque dignissimos odit, nam voluptatem unde tempora dolore modi. Dolor eveniet, porro nulla consequuntur quis vitae culpa veritatis quas numquam voluptas, maxime corrupti quod velit eius. Aspernatur, iusto fugit.',
@@ -114,11 +114,9 @@ const MoviePage: React.FC<MoviePageProps> = (props: MoviePageProps) => {
                     <article className="movie__poster-info">
                         <h3 className="movie__poster-title">{film.title}</h3>
                         <ul className="movie__poster-genres">
-                            {
-                                film.genreIds.map((genre, i) => (
-                                    <li key={i} className="movie__poster-genres_items">item {genre}</li>
-                                ))
-                            }
+                            {film.genreIds.map((genre, i) => (
+                                <li key={i} className="movie__poster-genres_items">item {genre}</li>
+                            ))}
                         </ul>
                         <p className="movie__poster-description">{film.description}</p>
                     </article>
@@ -149,6 +147,21 @@ const MoviePage: React.FC<MoviePageProps> = (props: MoviePageProps) => {
                         }
                     </SliderComponent>
                 </section>
+                <section className="section movie__seasons">
+                    <h2>seasons</h2>
+                    <SliderComponent
+                        autoplay={false}
+                        swipe={true}
+                        clazz={'slick__cards'}
+                        infinite={film.seasons.length < 5 ? false : true}
+                    >
+                        {
+                            film.seasons.map((seasons, i) => (
+                                <MovieCard clazz='' image='' title={`Season ${seasons.seasonNumber}`} key={i} />
+                            ))
+                        }
+                    </SliderComponent>
+                </section>
                 <section className="section movie__recommendations">
                     <h2>recommendations</h2>
                     <SliderComponent
@@ -168,4 +181,4 @@ const MoviePage: React.FC<MoviePageProps> = (props: MoviePageProps) => {
     );
 }
 
-export default MoviePage;
+export default TvPage;

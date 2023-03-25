@@ -26,6 +26,8 @@ API wich i used [**WeatherAPI**](https://www.weatherapi.com/)
 
 [**React Router Dom**](https://reactrouter.com/en/main)
 
+[**React Paginate**](https://github.com/AdeleD/react-paginate#readme)
+
 [**React Icons**](https://react-icons.github.io/react-icons/)
 
 [**React Slick**](https://react-slick.neostack.com/)
