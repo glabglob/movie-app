@@ -68,7 +68,7 @@ const SearchBar: React.FC = () => {
     const getItems = () => {
         const arr: Film[] = [];
 
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 10; i++) {
             arr.push({
                 mediaType: 'tv',
                 id: i,
@@ -124,9 +124,9 @@ const SearchBar: React.FC = () => {
                                         </p>
                                         <ul className='search__result-genres'>
                                             {
-                                                film.genreIds.map(() => (
+                                                film.genreIds.map((genreId, i) => (
                                                     <li key={i}>
-                                                        item {i}
+                                                        item {genreId}
                                                     </li>
                                                 ))
                                             }
@@ -135,19 +135,8 @@ const SearchBar: React.FC = () => {
                                 </div>
                             ))
                         }
-                        {
-                            items.length > 4 ? (
-                                <button className='search__result-button'
-                                    onClick={() => goToSearchPage()}
-                                >
-                                    More Results
-                                </button>
-                            ) : ('')
-                        }
                     </div>) : (' ')
             }
-
-
         </div>
     );
 }

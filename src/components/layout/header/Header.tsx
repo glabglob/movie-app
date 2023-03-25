@@ -69,7 +69,7 @@ const Header: React.FC = () => {
                             </NavLink>
                         </li>
                         <li className='header__navigation-list_item'>
-                            <NavLink to={'/tv'}
+                            <NavLink to={'/tvs'}
                                 className='header__navigation-list_links'
                                 onClick={handleLinkClick}
                             >tv shows

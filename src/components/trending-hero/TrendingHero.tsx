@@ -18,7 +18,7 @@ const TrendingHero: React.FC<TrendingHeroProps> = (props: TrendingHeroProps) => 
     const navigate = useNavigate();
 
     return (
-        <div
+        <section
             className="trendings__content"
             onClick={() => (props.onClick ? props.onClick() : '')}
         >
@@ -35,7 +35,7 @@ const TrendingHero: React.FC<TrendingHeroProps> = (props: TrendingHeroProps) => 
                     {props.description}
                 </p>
             </article>
-        </div>
+        </section>
     );
 }
 

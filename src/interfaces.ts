@@ -6,16 +6,6 @@ export interface AppContainerProps {
     className?: string
 }
 
-export interface SearchResultProps {
-    keyword: string
-    goToSearchPage: Function
-}
-
-export interface Season {
-    id: number,
-    seasonNumber: number
-}
-
 export interface Film {
     mediaType: MediaType
     id: number
@@ -25,6 +15,45 @@ export interface Film {
     cover: string
     genreIds: number[]
     seasons: Season[]
+    episodes?: Episode[]
+}
+
+// export interface Season {
+//     id: number
+//     filmName: string
+//     name: string
+//     seasonNumber: number
+//     posterPath: string
+//     episodes: Episode[]
+//     airDate: string
+// }
+
+// export interface Episode {
+//     id: number
+//     title: string
+//     overview: string
+//     airDate: string
+//     stillPath: string
+//     episodeNumber: number
+// }
+
+export interface Episode {
+    id?: number
+    title?: string
+    overview?: string
+    airDate?: string
+    stillPath?: string
+    episodeNumber?: number
+}
+
+export interface SearchResultProps {
+    keyword: string
+    goToSearchPage: Function
+}
+
+export interface Season {
+    id: number,
+    seasonNumber: number
 }
 
 export interface Cast {
