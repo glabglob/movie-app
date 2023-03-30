@@ -1,4 +1,4 @@
-import { MediaType } from '../../../types';
+import { MediaType } from '../../../types/types';
 
 import AppContainer from '../../container/AppContainer';
 import CatalogComponent from '../../catalog-component/CatalogComponent';
@@ -18,7 +18,7 @@ const TvsPage: React.FC<TvsPageProps> = (props: TvsPageProps) => {
                 </AppContainer>
             </section>
             <AppContainer>
-                <CatalogComponent itemsPerPage={24} />
+                <CatalogComponent itemsPerPage={24} type={'tv'} />
             </AppContainer>
         </main>
     );

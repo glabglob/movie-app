@@ -1,8 +1,11 @@
-import { MediaType } from "../../../types";
-import { Cast, Film } from "../../../interfaces";
+import { MediaType } from "../../../types/types";
 
-import { useParams } from "react-router-dom";
-import { useState, useEffect } from 'react';
+import { Link, useParams } from "react-router-dom";
+import { useEffect } from 'react';
+
+import { useAppDispatch } from '../../../hooks/useAppDispatch';
+import { useAppSelector } from '../../../hooks/useAppSelector';
+import { getMovieDetail, getCast, getTrailers, getRecommendations } from "../../../slices/detailsPageSlice";
 
 import AppContainer from "../../container/AppContainer";
 import SliderComponent from "../../slider/SliderComponent";
@@ -14,111 +17,66 @@ import TrailerCard from "../../trailer-card/TrailerCard";
 import './tvPage.scss';
 
 interface TvPageProps {
-    type : MediaType
+    type: MediaType
 }
 
 const TvPage: React.FC<TvPageProps> = (props: TvPageProps) => {
 
-    const { params } = useParams();
-    const [casts, setCasts] = useState<Cast[]>([]);
-    const [trailers, setTrailers] = useState<Film[]>([]);
-    const [recommendations, setRecommendations] = useState<Film[]>([]);
+    const { id } = useParams<any>();
 
-    const [film, setFilm] = useState<Film>({
-        mediaType: props.type,
-        id: 0,
-        title: 'Lorem ipsum dolor sit amet.',
-        description: 'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.',
-        cover: '',
-        genreIds: [1, 2, 3, 4, 5],
-        poster: '',
-        seasons: [
-            {
-                id: 1,
-                seasonNumber: 1
-            },
-            {
-                id: 2,
-                seasonNumber: 2
-            }, {
-                id: 3,
-                seasonNumber: 3
-            }, {
-                id: 4,
-                seasonNumber: 4
-            }, {
-                id: 5,
-                seasonNumber: 5
-            }, {
-                id: 6,
-                seasonNumber: 6
-            },
-
-        ]
-    });
-
-    const getCasts = () => {
-        const arr: Cast[] = [];
-
-        for (let i = 0; i < 20; i++) {
-            arr.push({
-                id: i,
-                actorName: "Leonardo DiCaprio",
-                charName: "Jordan Belfort",
-            })
-        }
-        setCasts(arr);
-    }
-
-    const getFilms = () => {
-        const arr: Film[] = [];
-
-        for (let i = 0; i < 5; i++) {
-            arr.push({
-                mediaType: 'tv',
-                id: i,
-                title: 'Some Title',
-                description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero nihil dolorum eaque nemo quibusdam atque deserunt nisi ad quae beatae aliquid, itaque dignissimos odit, nam voluptatem unde tempora dolore modi. Dolor eveniet, porro nulla consequuntur quis vitae culpa veritatis quas numquam voluptas, maxime corrupti quod velit eius. Aspernatur, iusto fugit.',
-                cover: '',
-                genreIds: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-                poster: '',
-                seasons: []
-            })
-        }
-        setTrailers(arr);
-        setRecommendations(arr);
-    }
-
+    const dispatch = useAppDispatch();
+    const {
+        movieDetailFetchStatus,
+        castFetchStatus,
+        trailersFetchStatus,
+        recommendationsFetchStatus,
+        movie,
+        cast,
+        trailers,
+        recommendations
+    } = useAppSelector(state => state.detailPageReducer);
 
     useEffect(() => {
-        getCasts();
-        getFilms();
-    }, []);
+        dispatch(getMovieDetail({ mediaType: props.type, movieId: `${id}` }));
+        dispatch(getCast({ mediaType: props.type, movieId: `${id}` }));
+        dispatch(getTrailers({ mediaType: props.type, movieId: `${id}` }));
+        dispatch(getRecommendations({ mediaType: props.type, movieId: `${id}` }));
+    }, [id, props.type]);
 
     return (
         <main>
             <section className="movie__hero">
                 <ImageContainer
-                    imgSrc={''}
-                    alt={film.title}
+                    imgSrc={
+                        (movie.cover === undefined || movie.cover === null) ?
+                            `https://image.tmdb.org/t/p/original${movie.poster}` :
+                            `https://image.tmdb.org/t/p/original${movie.cover}`
+                    }
+                    alt={`${movie.title}`}
                     clazz='movie__hero-img'
                 />
             </section>
             <AppContainer>
                 <section className="section movie__poster">
                     <ImageContainer
-                        imgSrc={''}
-                        alt={film.title}
+                        imgSrc={
+                            (movie.poster === undefined || movie.poster === null) ?
+                                `https://image.tmdb.org/t/p/original${movie.cover}` :
+                                `https://image.tmdb.org/t/p/original${movie.poster}`
+                        }
+                        alt={`${movie.title}`}
                         clazz='poster'
                     />
                     <article className="movie__poster-info">
-                        <h3 className="movie__poster-title">{film.title}</h3>
+                        <h3 className="movie__poster-title">{movie.title}</h3>
                         <ul className="movie__poster-genres">
-                            {film.genreIds.map((genre, i) => (
-                                <li key={i} className="movie__poster-genres_items">item {genre}</li>
-                            ))}
+                            {
+                                (movie.genres === undefined) ? '' : (movie.genres.map((genre, i) => (
+                                    <li key={i} className="movie__poster-genres_items">{genre.name}</li>
+                                )))
+                            }
                         </ul>
-                        <p className="movie__poster-description">{film.description}</p>
+                        <p className="movie__poster-description">{movie.description}</p>
                     </article>
                 </section>
                 <section className="section movie__casts">
@@ -126,10 +84,17 @@ const TvPage: React.FC<TvPageProps> = (props: TvPageProps) => {
                     <SliderComponent
                         clazz={"slick__scroll"}
                         autoplay={true}
+                        infinite={(cast.length <= 5) ? false : true}
                     >
                         {
-                            casts.map((cast, i) => (
-                                <CastCard image='' actorName={cast.actorName} charName={cast.charName} key={i} />
+                            cast.map((cast, i) => (
+                                <Link to={`/person/${cast.id}`} key={i}>
+                                    <CastCard
+                                        image={`https://image.tmdb.org/t/p/original${cast.cover}`}
+                                        actorName={cast.name}
+                                        charName={cast.charName}
+                                    />
+                                </Link>
                             ))
                         }
                     </SliderComponent>
@@ -139,10 +104,15 @@ const TvPage: React.FC<TvPageProps> = (props: TvPageProps) => {
                     <SliderComponent
                         clazz={"slick__scroll"}
                         autoplay={false}
+                        infinite={(trailers.length <= 5) ? false : true}
                     >
                         {
                             trailers.map((trailers, i) => (
-                                <TrailerCard clazz="" image='' title={trailers.title} key={i} />
+                                <TrailerCard
+                                    image={`https://img.youtube.com/vi/${trailers.key}/mqdefault.jpg`}
+                                    title={''}
+                                    key={i}
+                                />
                             ))
                         }
                     </SliderComponent>
@@ -153,11 +123,17 @@ const TvPage: React.FC<TvPageProps> = (props: TvPageProps) => {
                         autoplay={false}
                         swipe={true}
                         clazz={'slick__cards'}
-                        infinite={film.seasons.length < 5 ? false : true}
+                        infinite={(movie.seasons.length <= 5) ? false : true}
                     >
                         {
-                            film.seasons.map((seasons, i) => (
-                                <MovieCard clazz='' image='' title={`Season ${seasons.seasonNumber}`} key={i} />
+                            movie.seasons.map((seasons, i) => (
+                                <Link to={`/tv/${id}/season/${seasons.seasonNumber}`} key={i}>
+                                    <MovieCard
+                                        image={`https://image.tmdb.org/t/p/original${seasons.poster}`}
+                                        title={`${seasons.title}`}
+                                    />
+                                </Link>
+
                             ))
                         }
                     </SliderComponent>
@@ -168,10 +144,20 @@ const TvPage: React.FC<TvPageProps> = (props: TvPageProps) => {
                         autoplay={false}
                         swipe={true}
                         clazz={'slick__cards'}
+                        infinite={(recommendations.length <= 5) ? false : true}
                     >
                         {
-                            recommendations.map((recommendations, i) => (
-                                <MovieCard image='' title={recommendations.title} key={i} />
+                            recommendations.map((rec, i) => (
+                                <Link to={`/${rec.mediaType}/${rec.id}`} key={i}>
+                                    <MovieCard
+                                        image={
+                                            (rec.poster === undefined || rec.poster === null) ?
+                                                `https://image.tmdb.org/t/p/original${rec.cover}` :
+                                                `https://image.tmdb.org/t/p/original${rec.poster}`
+                                        }
+                                        title={rec.title}
+                                    />
+                                </Link>
                             ))
                         }
                     </SliderComponent>

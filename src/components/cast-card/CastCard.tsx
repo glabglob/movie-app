@@ -1,12 +1,9 @@
-import { useNavigate } from 'react-router-dom';
 
-
-import actr from './actor.jpg';
 import './castCard.scss';
 
 
 interface CastCardProps {
-    onClick?: Function
+    clazz?: string
     image: string,
     actorName: string,
     charName: string,
@@ -14,13 +11,11 @@ interface CastCardProps {
 
 const CastCard: React.FC<CastCardProps> = (props: CastCardProps) => {
 
-    const navigate = useNavigate();
-
     return (
-        <div className="cast__card" onClick={() => (props.onClick ? props.onClick() : '')}>
+        <div className={(props.clazz ? `cast__card ${props.clazz}` : 'cast__card')} >
             <figure className="cast__card-img_container">
                 <img className='cast__card-img'
-                    src={''}
+                    src={props.image}
                     alt="Thumbnail"
                 />
                 <figcaption className="cast__card-info">

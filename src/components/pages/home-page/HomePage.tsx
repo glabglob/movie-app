@@ -1,7 +1,9 @@
-import { Film } from '../../../interfaces';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../../hooks/useAppDispatch';
+import { useAppSelector } from '../../../hooks/useAppSelector';
+import { getTrendings, getInCinema, getPopular, getTopRatedTv, getTopRatedMovie } from '../../../slices/homePageSlice';
 
 import AppContainer from '../../container/AppContainer';
 import SliderComponent from '../../slider/SliderComponent';
@@ -12,39 +14,28 @@ import './homePage.scss';
 
 const HomePage: React.FC = () => {
 
-    const navigate = useNavigate();
-
-    const [trendings, setTrendings] = useState<Film[]>([]);
-    const [inCinema, setInCinema] = useState<Film[]>([]);
-    const [popular, setPopular] = useState<Film[]>([]);
-    const [topRatedTv, setTopRatedTv] = useState<Film[]>([]);
-    const [topRatedMovie, setTopRatedMovie] = useState<Film[]>([]);
-
-
-    const getItems = () => {
-        const arr: Film[] = [];
-
-        for (let i = 0; i < 5; i++) {
-            arr.push({
-                mediaType: 'movie',
-                id: i,
-                title: 'Some Title',
-                description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero nihil dolorum eaque nemo quibusdam atque deserunt nisi ad quae beatae aliquid, itaque dignissimos odit, nam voluptatem unde tempora dolore modi. Dolor eveniet, porro nulla consequuntur quis vitae culpa veritatis quas numquam voluptas, maxime corrupti quod velit eius. Aspernatur, iusto fugit.',
-                cover: '',
-                genreIds: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-                poster: '',
-                seasons: []
-            })
-        }
-        setTrendings(arr);
-        setInCinema(arr);
-        setPopular(arr);
-        setTopRatedTv(arr);
-        setTopRatedMovie(arr);
-    }
+    const dispatch = useAppDispatch();
+    // status is for spinners
+    const {
+        trendingsFetchStatus,
+        inCinemaFetchStatus,
+        popularFetchStatus,
+        topRatedTvFetchStatus,
+        topRatedMovieFetchStatus,
+        trendings,
+        inCinema,
+        popular,
+        topRatedTv,
+        topRatedMovie
+    } = useAppSelector(state => state.homePageReducer);
 
     useEffect(() => {
-        getItems();
+        dispatch(getTrendings());
+        dispatch(getInCinema('movie'));
+        dispatch(getPopular());
+        dispatch(getTopRatedTv('tv'));
+        dispatch(getTopRatedMovie('movie'));
+        // eslint-disable-next-line
     }, []);
 
     return (
@@ -56,11 +47,18 @@ const HomePage: React.FC = () => {
                         autoplay={true}
                         slidesToShow={1}
                         slidesToScroll={1}
+                        autoplaySpeed={3500}
                         clazz={'slick__hero'}
                     >
                         {
                             trendings.map((film, i) => (
-                                <TrendingHero image='' title={film.title} description={film.description} key={i} />
+                                <Link to={`/${film.mediaType}/${film.id}`} key={i}>
+                                    <TrendingHero
+                                        image={`https://image.tmdb.org/t/p/original${film.cover}`}
+                                        title={film.title}
+                                        description={film.description}
+                                    />
+                                </Link>
                             ))
                         }
                     </SliderComponent>
@@ -72,7 +70,14 @@ const HomePage: React.FC = () => {
                         clazz={'slick__cards'}
                     >
                         {inCinema.map((film, i) => (
-                            <MovieCard image='' title={film.title} key={i} />
+                            <Link to={`/${film.mediaType}/${film.id}`} key={i}>
+                                <MovieCard
+                                    image={(film.poster === null || film.poster === undefined) ?
+                                        `https://image.tmdb.org/t/p/original${film.cover}` :
+                                        `https://image.tmdb.org/t/p/original${film.poster}`}
+                                    title={film.title}
+                                />
+                            </Link>
                         ))}
                     </SliderComponent>
                 </section>
@@ -83,7 +88,17 @@ const HomePage: React.FC = () => {
                         clazz={'slick__cards'}
                     >
                         {popular.map((film, i) => (
-                            <MovieCard image='' title={film.title} key={i} />
+                            <Link to={`/${film.mediaType}/${film.id}`} key={i} >
+
+                                <MovieCard
+
+                                    image={(film.poster === null || film.poster === undefined) ?
+                                        `https://image.tmdb.org/t/p/original/${film.cover}` :
+                                        `https://image.tmdb.org/t/p/original${film.poster}`}
+                                    title={film.title}
+
+                                />
+                            </Link>
                         ))}
                     </SliderComponent>
                 </section>
@@ -94,7 +109,14 @@ const HomePage: React.FC = () => {
                         clazz={'slick__cards'}
                     >
                         {topRatedTv.map((film, i) => (
-                            <MovieCard image='' title={film.title} key={i} />
+                            <Link to={`/${film.mediaType}/${film.id}`} key={i}>
+                                <MovieCard
+                                    image={(film.poster === null || film.poster === undefined) ?
+                                        `https://image.tmdb.org/t/p/original${film.cover}` :
+                                        `https://image.tmdb.org/t/p/original${film.poster}`}
+                                    title={film.title}
+                                />
+                            </Link>
                         ))}
                     </SliderComponent>
                 </section>
@@ -105,7 +127,14 @@ const HomePage: React.FC = () => {
                         clazz={'slick__cards'}
                     >
                         {topRatedMovie.map((film, i) => (
-                            <MovieCard image='' title={film.title} key={i} />
+                            <Link to={`/${film.mediaType}/${film.id}`} key={i}>
+                                <MovieCard
+                                    image={(film.poster === null || film.poster === undefined) ?
+                                        `https://image.tmdb.org/t/p/original${film.cover}` :
+                                        `https://image.tmdb.org/t/p/original${film.poster}`}
+                                    title={film.title}
+                                />
+                            </Link>
                         ))}
                     </SliderComponent>
                 </section>

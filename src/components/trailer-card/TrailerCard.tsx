@@ -15,7 +15,7 @@ const TrailerCard: React.FC<TrailerCardProps> = (props: TrailerCardProps) => {
         <div className={(props.clazz ? `trailer__card ${props.clazz}` : 'trailer__card')} onClick={() => (props.onClick ? props.onClick() : '')}>
             <ImageContainer
                 clazz='movie__cover trailer__cover'
-                imgSrc={''}
+                imgSrc={props.image}
                 alt={props.title}
             />
         </div >

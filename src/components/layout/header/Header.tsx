@@ -47,7 +47,7 @@ const Header: React.FC = () => {
         <header className={`header ${includeHide ? 'hide-header' : ''}`}>
             <AppContainer>
                 {/* logo img */}
-                <NavLink to={'/'} className='header__logo'>
+                <NavLink to={'/home'} className='header__logo'>
                     <img src={logo} alt="Logo" className='header__logo' />
                 </NavLink>
                 {/* burger menu */}
@@ -62,14 +62,14 @@ const Header: React.FC = () => {
                 <nav className={`header__navigation ${menuActive ? 'active-menu' : ''}`}>
                     <ul className="header__navigation-list">
                         <li className='header__navigation-list_item'>
-                            <NavLink to={'/movies'}
+                            <NavLink to={'/movie'}
                                 className='header__navigation-list_links'
                                 onClick={handleLinkClick}
                             >movies
                             </NavLink>
                         </li>
                         <li className='header__navigation-list_item'>
-                            <NavLink to={'/tvs'}
+                            <NavLink to={'/tv'}
                                 className='header__navigation-list_links'
                                 onClick={handleLinkClick}
                             >tv shows
@@ -80,13 +80,6 @@ const Header: React.FC = () => {
                                 className='header__navigation-list_links'
                                 onClick={handleLinkClick}
                             >actors
-                            </NavLink>
-                        </li>
-                        <li className='header__navigation-list_item'>
-                            <NavLink to={'/trending'}
-                                className='header__navigation-list_links'
-                                onClick={handleLinkClick}
-                            >trending
                             </NavLink>
                         </li>
                     </ul>

@@ -1,7 +1,11 @@
-import { MediaType } from '../../../types';
-import { Film } from '../../../interfaces';
+import { MediaType } from '../../../types/types';
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+
+import { useAppDispatch } from '../../../hooks/useAppDispatch';
+import { useAppSelector } from '../../../hooks/useAppSelector';
+import { getKnownFor, getActorDetails } from "../../../slices/actorPageSlice";
 
 import AppContainer from '../../container/AppContainer';
 import ImageContainer from '../../image-container/ImageContainer';
@@ -14,134 +18,57 @@ interface ActorPageProps {
 
 const ActorPage: React.FC<ActorPageProps> = (props: ActorPageProps) => {
 
-    const [film, setFilm] = useState<Film[]>([]);
+    const { id } = useParams<any>();
 
-    const getFilms = () => {
-        const arr: Film[] = [];
-
-        for (let i = 0; i < 12; i++) {
-            arr.push({
-                mediaType: props.type,
-                id: i,
-                title: 'Some Title',
-                description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero nihil dolorum eaque nemo quibusdam atque deserunt nisi ad quae beatae aliquid, itaque dignissimos odit, nam voluptatem unde tempora dolore modi. Dolor eveniet, porro nulla consequuntur quis vitae culpa veritatis quas numquam voluptas, maxime corrupti quod velit eius. Aspernatur, iusto fugit.',
-                cover: '',
-                genreIds: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-                poster: '',
-                seasons: []
-            })
-        }
-        setFilm(arr);
-    }
+    const dispatch = useAppDispatch();
+    const {
+        knownForFetchStatus,
+        actorDetailsFetchStatus,
+        knownFor,
+        actorDetails
+    } = useAppSelector(state => state.actorPageReducer);
 
     useEffect(() => {
-        getFilms();
-    }, []);
+        dispatch(getKnownFor({ personId: `${id}` }));
+        dispatch(getActorDetails({ personId: `${id}` }));
+
+    }, [id]);
 
     return (
         <main>
-            <section className="movie__hero">
-                <ImageContainer
-                    imgSrc={''}
-                    alt={'Some title'}
-                    clazz='movie__hero-img'
-                />
-            </section>
             <AppContainer>
-                <section className="section movie__poster">
+                <section className="section movie__poster actor__poster">
                     <ImageContainer
-                        imgSrc={''}
-                        alt={'Some title'}
+                        imgSrc={`https://image.tmdb.org/t/p/original${actorDetails.poster}`}
+                        alt={`${actorDetails.name}`}
                         clazz='poster'
                     />
                     <article className="movie__poster-info actor__info">
-                        <h3 className="movie__poster-title actor__name">{'Actor Name'}</h3>
+                        <h3 className="movie__poster-title actor__name">{actorDetails.name}</h3>
                         <p className="movie__poster-sub__heading">Biography</p>
                         <p className='movie__poster-biography'>
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                            Aliquid nam corrupti labore rerum libero.
-                            Alias sit numquam minus ad dolore quo accusamus, ipsa eos?
-                            Esse nesciunt numquam eius temporibus distinctio,
-                            rem laboriosam voluptates soluta repellat modi eos necessitatibus dolor molestias ullam sequi,
-                            reiciendis, maiores harum repudiandae.
-                            Amet reprehenderit consequuntur deleniti et officiis,
-                            ipsam deserunt, distinctio saepe perspiciatis optio quia quod beatae ducimus sed fugit adipisci voluptatibus illum aliquam,
-                            quis consequatur vitae maiores enim.
-                            Dicta pariatur eaque atque,
-                            magnam voluptatum error omnis sunt hic quo commodi optio nihil aperiam quod ducimus natus?
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                            Aliquid nam corrupti labore rerum libero.
-                            Alias sit numquam minus ad dolore quo accusamus, ipsa eos?
-                            Esse nesciunt numquam eius temporibus distinctio,
-                            rem laboriosam voluptates soluta repellat modi eos necessitatibus dolor molestias ullam sequi,
-                            reiciendis, maiores harum repudiandae.
-                            Amet reprehenderit consequuntur deleniti et officiis,
-                            ipsam deserunt, distinctio saepe perspiciatis optio quia quod beatae ducimus sed fugit adipisci voluptatibus illum aliquam,
-                            quis consequatur vitae maiores enim.
-                            Dicta pariatur eaque atque,
-                            magnam voluptatum error omnis sunt hic quo commodi optio nihil aperiam quod ducimus natus?
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                            Aliquid nam corrupti labore rerum libero.
-                            Alias sit numquam minus ad dolore quo accusamus, ipsa eos?
-                            Esse nesciunt numquam eius temporibus distinctio,
-                            rem laboriosam voluptates soluta repellat modi eos necessitatibus dolor molestias ullam sequi,
-                            reiciendis, maiores harum repudiandae.
-                            Amet reprehenderit consequuntur deleniti et officiis,
-                            ipsam deserunt, distinctio saepe perspiciatis optio quia quod beatae ducimus sed fugit adipisci voluptatibus illum aliquam,
-                            quis consequatur vitae maiores enim.
-                            Dicta pariatur eaque atque,
-                            magnam voluptatum error omnis sunt hic quo commodi optio nihil aperiam quod ducimus natus?
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                            Aliquid nam corrupti labore rerum libero.
-                            Alias sit numquam minus ad dolore quo accusamus, ipsa eos?
-                            Esse nesciunt numquam eius temporibus distinctio,
-                            rem laboriosam voluptates soluta repellat modi eos necessitatibus dolor molestias ullam sequi,
-                            reiciendis, maiores harum repudiandae.
-                            Amet reprehenderit consequuntur deleniti et officiis,
-                            ipsam deserunt, distinctio saepe perspiciatis optio quia quod beatae ducimus sed fugit adipisci voluptatibus illum aliquam,
-                            quis consequatur vitae maiores enim.
-                            Dicta pariatur eaque atque,
-                            magnam voluptatum error omnis sunt hic quo commodi optio nihil aperiam quod ducimus natus?
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                            Aliquid nam corrupti labore rerum libero.
-                            Alias sit numquam minus ad dolore quo accusamus, ipsa eos?
-                            Esse nesciunt numquam eius temporibus distinctio,
-                            rem laboriosam voluptates soluta repellat modi eos necessitatibus dolor molestias ullam sequi,
-                            reiciendis, maiores harum repudiandae.
-                            Amet reprehenderit consequuntur deleniti et officiis,
-                            ipsam deserunt, distinctio saepe perspiciatis optio quia quod beatae ducimus sed fugit adipisci voluptatibus illum aliquam,
-                            quis consequatur vitae maiores enim.
-                            Dicta pariatur eaque atque,
-                            magnam voluptatum error omnis sunt hic quo commodi optio nihil aperiam quod ducimus natus?
-                             Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                            Aliquid nam corrupti labore rerum libero.
-                            Alias sit numquam minus ad dolore quo accusamus, ipsa eos?
-                            Esse nesciunt numquam eius temporibus distinctio,
-                            rem laboriosam voluptates soluta repellat modi eos necessitatibus dolor molestias ullam sequi,
-                            reiciendis, maiores harum repudiandae.
-                            Amet reprehenderit consequuntur deleniti et officiis,
-                            ipsam deserunt, distinctio saepe perspiciatis optio quia quod beatae ducimus sed fugit adipisci voluptatibus illum aliquam,
-                            quis consequatur vitae maiores enim.
-                            Dicta pariatur eaque atque,
-                            magnam voluptatum error omnis sunt hic quo commodi optio nihil aperiam quod ducimus natus?
+                           {actorDetails.biography}
                         </p>
-
                     </article>
                 </section>
                 <section className="section movie__list">
                     <h2 className='movie__list-heading'>Known For</h2>
                     {
-                        film.map((film, i) => (
+                        knownFor.map((movie, i) => (
                             <div className="movie__list-item" key={i}>
                                 <ImageContainer
-                                    imgSrc={film.title}
-                                    alt={film.title}
+                                    imgSrc={
+                                        (movie.poster === undefined || movie.poster === null) ?
+                                            `https://image.tmdb.org/t/p/original${movie.cover}` :
+                                            `https://image.tmdb.org/t/p/original${movie.poster}`
+                                    }
+                                    alt={`${movie.title}`}
                                     clazz='movie__list-img'
                                 />
                                 <article className="movie__list-item_info">
-                                    <h3 className='movie__list-title'>{film.title}</h3>
-                                    <p className='movie__list-description'>{film.description}</p>
-                                    <span className='movie__list-date'>Date of Open Air</span>
+                                    <h3 className='movie__list-title'>{movie.title}</h3>
+                                    <p className='movie__list-description'>{movie.description}</p>
+                                    <span className='movie__list-date'>{movie.date}</span>
                                 </article>
                             </div>
                         ))

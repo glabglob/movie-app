@@ -79,7 +79,6 @@ const SliderComponent: React.FC<SliderComponentProps> = (props: SliderComponentP
         }
     }
 
-
     return (
         <Slick
             className={props.clazz}
