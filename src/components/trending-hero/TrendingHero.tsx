@@ -1,26 +1,19 @@
-import { Film } from "../../interfaces";
-
-import { useNavigate } from "react-router-dom";
-
 import ImageContainer from "../image-container/ImageContainer";
 
 import './trendingHero.scss';
 
 interface TrendingHeroProps {
-    onClick?: Function,
     image: string,
     title: string,
-    description: string
+    description: string,
+    clazz?:string
 }
 
 const TrendingHero: React.FC<TrendingHeroProps> = (props: TrendingHeroProps) => {
 
-    const navigate = useNavigate();
-
     return (
         <section
             className="trendings__content"
-            onClick={() => (props.onClick ? props.onClick() : '')}
         >
             <ImageContainer
                 clazz={'trendings__cover'}

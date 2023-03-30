@@ -1,13 +1,25 @@
-import { useState, useEffect } from 'react';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import { useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
-import { Film } from '../../interfaces';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { getSearchResult } from "../../slices/searchSlice";
 
 import ImageContainer from '../image-container/ImageContainer';
+
 import './serachBar.scss';
 
+
 const SearchBar: React.FC = () => {
+
+    const searchTimeout = useRef<any>('')
+
+    const dispatch = useAppDispatch();
+    const {
+        serachResultFetchStatus,
+        searchResult
+    } = useAppSelector(state => state.searchReducer);
+
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -21,7 +33,39 @@ const SearchBar: React.FC = () => {
     const defaultKeyword = useRef('');
     const searchRef = useRef<HTMLInputElement>(null);
 
-    const [items, setItems] = useState<Film[]>([]);
+    const goToSearchPage = () => {
+        if (keyword) {
+            defaultKeyword.current = keyword;
+            navigate(`/search?q=${keyword}`);
+            setSearchFocus(false);
+            searchRef.current?.blur();
+        }
+    }
+
+    const setSearchTimeout = (query: string) => {
+        clearTimeout(searchTimeout.current)
+        searchTimeout.current = setTimeout(() => {
+            dispatch(getSearchResult({ query: `${query}` }));
+        }, 150);
+    }
+
+    const onSubmitHendler: React.FormEventHandler<HTMLFormElement> = (e) => {
+        e.preventDefault();
+        goToSearchPage();
+    }
+
+    const initKeyword = () => {
+        if (pathnameRef.current === '/search') {
+            setKeyword(defaultKeyword.current);
+        } else {
+            setKeyword('');
+        }
+    }
+
+    const onWindowClick = () => {
+        setSearchFocus(false);
+        initKeyword();
+    }
 
     useEffect(() => {
         setPathname(location.pathname)
@@ -38,53 +82,8 @@ const SearchBar: React.FC = () => {
         }
     }, [])
 
-    const goToSearchPage = () => {
-        if (keyword) {
-            defaultKeyword.current = keyword
-            navigate(`/search?q=${keyword}`)
-            setSearchFocus(false)
-            searchRef.current?.blur()
-        }
-    }
-
-    const onSubmitHendler: React.FormEventHandler<HTMLFormElement> = (e) => {
-        e.preventDefault();
-        goToSearchPage();
-    }
-
-    const initKeyword = () => {
-        if (pathnameRef.current === '/search') {
-            setKeyword(defaultKeyword.current)
-        } else {
-            setKeyword('')
-        }
-    }
-
-    const onWindowClick = () => {
-        setSearchFocus(false)
-        initKeyword()
-    }
-
-    const getItems = () => {
-        const arr: Film[] = [];
-
-        for (let i = 0; i < 10; i++) {
-            arr.push({
-                mediaType: 'tv',
-                id: i,
-                title: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero nihil dolorum eaque nemo quibusdam atque deserunt nisi ad quae beatae aliquid, itaque dignissimos odit, nam voluptatem unde tempora dolore modi. Dolor eveniet, porro nulla consequuntur quis vitae culpa veritatis quas numquam voluptas, maxime corrupti quod velit eius. Aspernatur, iusto fugit.',
-                description: '',
-                cover: '',
-                genreIds: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-                poster: '',
-                seasons: []
-            })
-        }
-        setItems(arr);
-    }
-
     useEffect(() => {
-        getItems()
+        setSearchTimeout(keyword);
     }, [keyword]);
 
     return (
@@ -109,30 +108,27 @@ const SearchBar: React.FC = () => {
                 isSearchFocused ?
                     (<div className="search__result">
                         {
-                            items.map((film, i) => (
-                                <div className="search__result-content"
-                                    key={i}
-                                >
-                                    <ImageContainer
-                                        clazz={'search__result-img'}
-                                        imgSrc={''}
-                                        alt={film.title}
-                                    />
-                                    <div className="search__result-info">
-                                        <p className="search__result-title">
-                                            {film.title}
-                                        </p>
-                                        <ul className='search__result-genres'>
-                                            {
-                                                film.genreIds.map((genreId, i) => (
-                                                    <li key={i}>
-                                                        item {genreId}
-                                                    </li>
-                                                ))
+                            searchResult.map((movie, i) => (
+                                <Link to={`/${movie.mediaType}/${movie.id}`} key={i}>
+                                    <div className="search__result-content"
+
+                                    >
+                                        <ImageContainer
+                                            clazz={'search__result-img'}
+                                            imgSrc={
+                                                (!movie.cover) ?
+                                                    `https://image.tmdb.org/t/p/original${movie.poster}` :
+                                                    `https://image.tmdb.org/t/p/original${movie.cover}`
                                             }
-                                        </ul>
+                                            alt={`${movie.title}`}
+                                        />
+                                        <article className="search__result-info">
+                                            <p className="search__result-title">
+                                                {movie.title}
+                                            </p>
+                                        </article>
                                     </div>
-                                </div>
+                                </Link>
                             ))
                         }
                     </div>) : (' ')

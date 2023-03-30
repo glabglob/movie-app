@@ -16,6 +16,10 @@
     &-title {
         padding: 15px;
         color: #fff;
+        text-shadow: 2px 0 2px #151515,
+        0 2px 2px #151515,
+        -2px 0 2px #151515,
+        0 -2px 2px #151515;
     }
 }
 

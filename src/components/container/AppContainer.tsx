@@ -1,4 +1,4 @@
-import { AppContainerProps } from "../../interfaces";
+import { AppContainerProps } from "../../interfaces/interfaces";
 
 import './appContainer.scss';
 

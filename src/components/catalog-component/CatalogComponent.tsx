@@ -1,59 +1,54 @@
-import { Film } from '../../interfaces';
+import { Film } from '../../interfaces/interfaces';
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import ReactPaginate from 'react-paginate';
 import MovieCard from '../movie-card/MovieCard';
 
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { useParams } from 'react-router-dom';
+
 import './catalogComponent.scss';
+import { getPaginateResult } from '../../slices/pagitaneSlice';
+import { MediaType } from '../../types/types';
 
 interface CatalogComponentProps {
     itemsPerPage: number
+    type: MediaType
 }
 
 const CatalogComponent: React.FC<CatalogComponentProps> = (props: CatalogComponentProps) => {
 
-    const [film, setfFilm] = useState<Film[]>([]);
-    const [itemOffset, setItemOffset] = useState(0);
-    const endOffset = itemOffset + props.itemsPerPage;
+    const { id } = useParams<any>();
 
-    const currentItems = film.slice(itemOffset, endOffset);
-    const pageCount = Math.ceil(film.length / props.itemsPerPage);
-
-    const handlePageClick = (event: any) => {
-        const newOffset = (event.selected * props.itemsPerPage) % film.length;
-        setItemOffset(newOffset);
-    };
-
-    const getFilms = () => {
-        const arr: Film[] = [];
-
-        for (let i = 0; i < 11120; i++) {
-            arr.push({
-                mediaType: 'movie',
-                id: i,
-                title: 'Some Title',
-                description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero nihil dolorum eaque nemo quibusdam atque deserunt nisi ad quae beatae aliquid, itaque dignissimos odit, nam voluptatem unde tempora dolore modi. Dolor eveniet, porro nulla consequuntur quis vitae culpa veritatis quas numquam voluptas, maxime corrupti quod velit eius. Aspernatur, iusto fugit.',
-                cover: '',
-                genreIds: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-                poster: '',
-                seasons: []
-            })
-        }
-        setfFilm(arr);
-    }
+    const dispatch = useAppDispatch();
+    const {
+        paginateResultFetchStatus,
+        currentPage,
+        totalPages,
+        paginateResult
+    } = useAppSelector((state) => state.paginateReducer);
 
     useEffect(() => {
-        getFilms();
-    }, []);
+        dispatch(getPaginateResult({ mediaType: props.type, pageNumber: `${currentPage}` }));
+    }, [currentPage, dispatch]);
+
+    const handlePageClick = (event: any) => {
+        dispatch(getPaginateResult({ mediaType: props.type, pageNumber: `${event.selected + 1}` }));
+    };
 
     return (
         <section className='section catalog'>
             <div className="catalog__items">
                 {
-                    currentItems.map((film, i) => (
+                    paginateResult.map((film, i) => (
                         <MovieCard
                             key={i}
-                            image={film.cover}
+                            image={
+                                (!film.cover) ?
+                                    `https://image.tmdb.org/t/p/original${film.poster}` :
+                                    `https://image.tmdb.org/t/p/original${film.cover}`
+                            }
                             title={film.title}
                         />
                     ))
@@ -63,7 +58,7 @@ const CatalogComponent: React.FC<CatalogComponentProps> = (props: CatalogCompone
                 onPageChange={handlePageClick}
                 pageRangeDisplayed={1}
                 marginPagesDisplayed={1}
-                pageCount={pageCount}
+                pageCount={totalPages}
                 breakLabel="..."
                 nextLabel=">"
                 previousLabel="<"
@@ -82,3 +77,78 @@ const CatalogComponent: React.FC<CatalogComponentProps> = (props: CatalogCompone
 }
 
 export default CatalogComponent;
+
+
+
+//   const handlePageClick = (page) => {
+//     dispatch(fetchData(page.selected + 1));
+//   };
+
+//   return (
+//     <div>
+//       <ul>
+//         {data.map((item) => (
+//           <li key={item.id}>{item.name}</li>
+//         ))}
+//       </ul>
+//       <ReactPaginate
+//         pageCount={totalPages}
+//         onPageChange={handlePageClick}
+//         containerClassName={'pagination'}
+//         activeClassName={'active'}
+//       />
+//     </div>
+//   );
+// };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const myComponentSlice = createSlice({
+//   name: 'myComponent',
+//   initialState,
+//   reducers: {},
+//   extraReducers: (builder) => {
+//     builder
+//       .addCase(fetchData.pending, (state) => {
+//         state.isLoading = true;
+//       })
+//       .addCase(fetchData.fulfilled, (state, action) => {
+//         state.isLoading = false;
+//         state.data = action.payload.data;
+//         state.totalPages = action.payload.totalPages;
+//         state.currentPage = action.payload.currentPage;
+//         state.error = null;
+//       })
+//       .addCase(fetchData.rejected, (state, action) => {
+//         state.isLoading = false;
+//         state.error = action.payload.error;
+//       });
+//   },
+// });
+

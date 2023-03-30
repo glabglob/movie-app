@@ -2,7 +2,7 @@ import './imgaeContainer.scss';
 
 interface ImageContainerProps {
     clazz?: string,
-    imgSrc: string,
+    imgSrc: string | undefined,
     alt: string
 }
 

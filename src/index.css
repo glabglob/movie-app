@@ -17,9 +17,14 @@
   outline: none;
 }
 
+a{
+  color: #fff;
+}
+
 a:focus,
 a:active {
   outline: none;
+  color: #fff;
 }
 
 nav,
