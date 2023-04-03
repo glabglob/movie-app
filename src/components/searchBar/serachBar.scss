@@ -20,39 +20,40 @@
         background-color: #343434;
 
         &:hover {
-            background-color: #151515;
+            background-color: #580100;
             color: #fff;
         }
     }
 
     &-img {
-        width: 102px;
-        height: 72px;
-        min-width: 102px;
+        height: 150px;
+        max-width: 100px;
+        min-width: 100px;
         border-radius: 6px;
     }
 
     &-info {
-        padding: 14px;
+        height: 70px;
+        padding: 10px 0px 0px 15px;
         overflow: hidden;
         text-overflow: ellipsis;
-        white-space: nowrap;
-        height: 70px;
+        white-space: wrap;
     }
 
     &-title {
+        font-size: 14px;
         font-weight: 700;
         line-height: 24px;
         margin-top: -10px;
         overflow: hidden;
         text-overflow: ellipsis;
-        white-space: nowrap;
+        white-space: wrap;
     }
 
     &-genres {
         display: flex;
         flex-wrap: wrap;
-        align-items: start;
+        align-items: flex-start;
         list-style: none;
         column-gap: 6px;
         font-size: 14px;

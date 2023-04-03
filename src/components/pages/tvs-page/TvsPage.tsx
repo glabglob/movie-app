@@ -1,9 +1,9 @@
-import { MediaType } from '../../../types/types';
+import { MediaType } from '../../../utils/types/types';
+
+import { Helmet } from 'react-helmet';
 
 import AppContainer from '../../container/AppContainer';
 import CatalogComponent from '../../catalog-component/CatalogComponent';
-
-import './tvsPage.scss';
 
 interface TvsPageProps {
     type: MediaType | 'tvs'
@@ -11,16 +11,22 @@ interface TvsPageProps {
 
 const TvsPage: React.FC<TvsPageProps> = (props: TvsPageProps) => {
     return (
-        <main>
-            <section className='page__hero'>
+        <>
+            <Helmet>
+                <meta name="description" content="Tv's list" />
+                <title>Tv's list</title>
+            </Helmet>
+            <main>
+                <section className='page__hero'>
+                    <AppContainer>
+                        <h2 className='page__hero-title'>Tv's</h2>
+                    </AppContainer>
+                </section>
                 <AppContainer>
-                    <h2 className='page__hero-title'>Tv's</h2>
+                    <CatalogComponent itemsPerPage={24} type={'tv'} />
                 </AppContainer>
-            </section>
-            <AppContainer>
-                <CatalogComponent itemsPerPage={24} type={'tv'} />
-            </AppContainer>
-        </main>
+            </main>
+        </>
     );
 }
 

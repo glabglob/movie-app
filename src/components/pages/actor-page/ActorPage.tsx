@@ -1,10 +1,12 @@
-import { MediaType } from '../../../types/types';
+import { MediaType } from '../../../utils/types/types';
 
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { BeatLoader, GridLoader } from 'react-spinners';
+import { Helmet } from 'react-helmet';
 
-import { useAppDispatch } from '../../../hooks/useAppDispatch';
-import { useAppSelector } from '../../../hooks/useAppSelector';
+import { useAppDispatch } from '../../../utils/hooks/useAppDispatch';
+import { useAppSelector } from '../../../utils/hooks/useAppSelector';
 import { getKnownFor, getActorDetails } from "../../../slices/actorPageSlice";
 
 import AppContainer from '../../container/AppContainer';
@@ -35,47 +37,80 @@ const ActorPage: React.FC<ActorPageProps> = (props: ActorPageProps) => {
     }, [id]);
 
     return (
-        <main>
-            <AppContainer>
-                <section className="section movie__poster actor__poster">
-                    <ImageContainer
-                        imgSrc={`https://image.tmdb.org/t/p/original${actorDetails.poster}`}
-                        alt={`${actorDetails.name}`}
-                        clazz='poster'
-                    />
-                    <article className="movie__poster-info actor__info">
-                        <h3 className="movie__poster-title actor__name">{actorDetails.name}</h3>
-                        <p className="movie__poster-sub__heading">Biography</p>
-                        <p className='movie__poster-biography'>
-                           {actorDetails.biography}
-                        </p>
-                    </article>
-                </section>
-                <section className="section movie__list">
-                    <h2 className='movie__list-heading'>Known For</h2>
+        <>
+            <Helmet>
+                <meta name="description" content={`${actorDetails.name} page`} />
+                <title>{actorDetails.name}</title>
+            </Helmet>
+            <main>
+                <AppContainer>
                     {
-                        knownFor.map((movie, i) => (
-                            <div className="movie__list-item" key={i}>
-                                <ImageContainer
-                                    imgSrc={
-                                        (movie.poster === undefined || movie.poster === null) ?
-                                            `https://image.tmdb.org/t/p/original${movie.cover}` :
-                                            `https://image.tmdb.org/t/p/original${movie.poster}`
-                                    }
-                                    alt={`${movie.title}`}
-                                    clazz='movie__list-img'
-                                />
-                                <article className="movie__list-item_info">
-                                    <h3 className='movie__list-title'>{movie.title}</h3>
-                                    <p className='movie__list-description'>{movie.description}</p>
-                                    <span className='movie__list-date'>{movie.date}</span>
-                                </article>
-                            </div>
-                        ))
+                        (actorDetailsFetchStatus !== 'idle') ?
+                            <GridLoader
+                                color='#582904'
+                                cssOverride={{
+                                    margin: '0 auto',
+                                    marginTop: '150px'
+                                }}
+                            /> :
+                            <section className="section movie__poster actor__poster">
+                                <div className="poster__container">
+                                    <ImageContainer
+                                        imgSrc={`https://image.tmdb.org/t/p/original${actorDetails.poster}`}
+                                        alt={`${actorDetails.name}`}
+                                        clazz='poster'
+                                    />
+                                    <article className="movie__poster-info actor__info">
+                                        <h3 className="movie__poster-title actor__name">{actorDetails.name}</h3>
+                                        <p className="movie__poster-sub__heading">Biography</p>
+                                        <p className='movie__poster-biography'>
+                                            {actorDetails.biography}
+                                        </p>
+                                    </article>
+                                </div>
+                            </section>
                     }
-                </section>
-            </AppContainer>
-        </main>
+                    {
+                        (knownFor.length === 0) ? '' :
+                            <section className="section movie__list">
+                                <h2 className='movie__list-heading'>Known For</h2>
+                                {
+                                    (knownForFetchStatus !== 'idle') ?
+                                        <BeatLoader
+                                            color='#582904'
+                                            cssOverride={{
+                                                margin: '0 auto'
+                                            }}
+                                        /> :
+                                        knownFor.map((movie, i) => (
+                                            <div className="movie__list-item-container" key={i}>
+                                                <Link to={`/${movie.mediaType}/${movie.id}`}>
+                                                    <div className="movie__list-item">
+                                                        <ImageContainer
+                                                            imgSrc={
+                                                                (movie.poster === undefined || movie.poster === null) ?
+                                                                    `https://image.tmdb.org/t/p/original${movie.cover}` :
+                                                                    `https://image.tmdb.org/t/p/original${movie.poster}`
+                                                            }
+                                                            alt={`${movie.title}`}
+                                                            clazz='movie__list-img'
+                                                        />
+                                                        <article className="movie__list-item_info">
+                                                            <h3 className='movie__list-title'>{movie.title}</h3>
+                                                            <p className='movie__list-description'>{movie.description}</p>
+                                                            <span className='movie__list-date'>{movie.date}</span>
+                                                        </article>
+                                                    </div>
+                                                </Link>
+                                            </div>
+                                        ))
+                                }
+                            </section>
+                    }
+
+                </AppContainer>
+            </main>
+        </>
     );
 }
 

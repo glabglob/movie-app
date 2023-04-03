@@ -1,5 +1,5 @@
-import { MediaType } from "../../types/types";
-import { Actor, KnownFor, } from "../../interfaces/slicesInterfaces";
+import { MediaType } from "../../utils/types/types";
+import { Actor, KnownFor, } from "../../utils/interfaces/slicesInterfaces";
 
 export const transformActorDetails = (obj: any): Actor => {
     return {

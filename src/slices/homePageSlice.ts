@@ -1,11 +1,11 @@
-import { Film } from "../interfaces/interfaces";
-import { HomePageInitialState } from "../interfaces/slicesInterfaces";
-import { MediaType } from "../types/types";
+import { Film } from "../utils/interfaces/interfaces";
+import { HomePageInitialState } from "../utils/interfaces/slicesInterfaces";
+import { MediaType } from "../utils/types/types";
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 
-import { useHttp } from "../hooks/http.hook";
-import { _apiBase, _apiKey } from "../api/api";
+import { useHttp } from "../utils/hooks/http.hook";
+import { _apiBase, _apiKey } from "../utils/api/api";
 import { transformFetch } from "./resultTransform/dataTransform";
 
 const initialState: HomePageInitialState = {
@@ -40,7 +40,7 @@ export const getInCinema = createAsyncThunk(
     async (mediaType?: MediaType) => {
         const { request } = useHttp();
         const res = await request(`${_apiBase}${mediaType}/now_playing?api_key=${_apiKey}`);
-        return res.results.map((items: any) => transformFetch(items, mediaType));
+        return res.results.map((items: any) => transformFetch(items, mediaType)).slice(0, 10);
     }
 );
 
@@ -63,7 +63,7 @@ export const getTopRatedTv = createAsyncThunk(
     async (mediaType?: MediaType) => {
         const { request } = useHttp();
         const res = await request(`${_apiBase}tv/top_rated?api_key=${_apiKey}`);
-        return res.results.map((items: any) => transformFetch(items, mediaType));
+        return res.results.map((items: any) => transformFetch(items, mediaType)).slice(0, 10);
     }
 );
 
@@ -72,14 +72,14 @@ export const getTopRatedMovie = createAsyncThunk(
     async (mediaType?: MediaType) => {
         const { request } = useHttp();
         const res = await request(`${_apiBase}${mediaType}/top_rated?api_key=${_apiKey}`);
-        return res.results.map((items: any) => transformFetch(items, mediaType));
+        return res.results.map((items: any) => transformFetch(items, mediaType)).slice(0, 10);
     }
 );
 
 const compareMovies = (movies: Film[], tvs: Film[]) => {
     const result = [];
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 5; i++) {
         if (i < movies.length) {
             result.push(movies[i]);
         }

@@ -1,0 +1,33 @@
+.footer {
+    width: 100%;
+    background-color: #151515;
+    margin-top: 15px;
+
+    &-info {
+        margin: 0 auto;
+        padding: 15px;
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-align: center;
+        color: #ffffff;
+
+        a {
+            color: #888888;
+
+            &:hover {
+                color: #ff0000;
+                text-decoration: underline;
+            }
+
+            &:visited {
+                color: #888888;
+
+                &:hover {
+                    color: #ff0000;
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}

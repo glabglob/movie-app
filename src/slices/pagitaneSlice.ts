@@ -1,9 +1,9 @@
-import { MediaType } from '../types/types';
-import { PagianteInitialState } from '../interfaces/slicesInterfaces';
+import { MediaType } from '../utils/types/types';
+import { PagianteInitialState } from '../utils/interfaces/slicesInterfaces';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-import { useHttp } from '../hooks/http.hook';
-import { _apiBase, _apiKey } from '../api/api';
+import { useHttp } from '../utils/hooks/http.hook';
+import { _apiBase, _apiKey } from '../utils/api/api';
 import { transformFetch } from './resultTransform/dataTransform';
 
 const initialState: PagianteInitialState = {

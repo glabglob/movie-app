@@ -1,14 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
-import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { useAppSelector } from '../../hooks/useAppSelector';
+import { useAppDispatch } from '../../utils/hooks/useAppDispatch';
+import { useAppSelector } from '../../utils/hooks/useAppSelector';
 import { getSearchResult } from "../../slices/searchSlice";
 
 import ImageContainer from '../image-container/ImageContainer';
 
 import './serachBar.scss';
-
 
 const SearchBar: React.FC = () => {
 
@@ -16,14 +15,12 @@ const SearchBar: React.FC = () => {
 
     const dispatch = useAppDispatch();
     const {
-        serachResultFetchStatus,
         searchResult
     } = useAppSelector(state => state.searchReducer);
 
-
     const navigate = useNavigate();
     const location = useLocation();
-    const [params, _] = useSearchParams();
+    const [params] = useSearchParams();
 
     const [isSearchFocused, setSearchFocus] = useState(false);
     const [pathname, setPathname] = useState('');
@@ -46,7 +43,7 @@ const SearchBar: React.FC = () => {
         clearTimeout(searchTimeout.current)
         searchTimeout.current = setTimeout(() => {
             dispatch(getSearchResult({ query: `${query}` }));
-        }, 150);
+        }, 100);
     }
 
     const onSubmitHendler: React.FormEventHandler<HTMLFormElement> = (e) => {
@@ -72,6 +69,7 @@ const SearchBar: React.FC = () => {
         pathnameRef.current = location.pathname
         defaultKeyword.current = params.get('q') || ''
         initKeyword()
+        // eslint-disable-next-line
     }, [location.pathname])
 
     useEffect(() => {
@@ -80,10 +78,12 @@ const SearchBar: React.FC = () => {
         return () => {
             window.removeEventListener('click', onWindowClick)
         }
+        // eslint-disable-next-line
     }, [])
 
     useEffect(() => {
         setSearchTimeout(keyword);
+        // eslint-disable-next-line
     }, [keyword]);
 
     return (
@@ -116,9 +116,9 @@ const SearchBar: React.FC = () => {
                                         <ImageContainer
                                             clazz={'search__result-img'}
                                             imgSrc={
-                                                (!movie.cover) ?
-                                                    `https://image.tmdb.org/t/p/original${movie.poster}` :
-                                                    `https://image.tmdb.org/t/p/original${movie.cover}`
+                                                (!movie.poster) ?
+                                                    `https://image.tmdb.org/t/p/original${movie.cover}` :
+                                                    `https://image.tmdb.org/t/p/original${movie.poster}`
                                             }
                                             alt={`${movie.title}`}
                                         />

@@ -12,6 +12,27 @@ body {
     width: 35px;
     margin-right: auto;
     align-self: middle;
+    display: flex;
+    flex-direction: row;
+
+    &-img {
+        width: 35px;
+
+    }
+
+    &-text {
+        padding: 7px 0px 0px 15px;
+        color: #ff0000;
+        letter-spacing: 1px;
+        font-weight: 700;
+        font-size: 18px;
+        text-align: start;
+        white-space: nowrap;
+
+        @media screen and (max-width: 500.98px) {
+            display: none;
+        }
+    }
 }
 
 .header {
@@ -153,6 +174,11 @@ body {
             transition: transform 0.5s ease-in-out;
             transform-origin: right;
             background-color: #ff0000;
+
+            @media screen and (max-width: 991.98px) {
+                right: 12px;
+                bottom: 10px;
+            }
         }
 
         &.active::before {
@@ -165,6 +191,11 @@ body {
             transition: transform 0.5s ease-in-out;
             transform-origin: right;
             background-color: #ff0000;
+
+            @media screen and (max-width: 991.98px) {
+                right: 12px;
+                bottom: 10px;
+            }
         }
 
         &:hover::before {

@@ -1,13 +1,13 @@
-import { DetailPageInitialState } from "../interfaces/slicesInterfaces";
-import { MediaType } from "../types/types";
+import { DetailPageInitialState } from "../utils/interfaces/slicesInterfaces";
+import { MediaType } from "../utils/types/types";
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { transformDetails, transformCast, transformTrailers } from "./resultTransform/movieDetailsData";
 import { transformFetch } from "./resultTransform/dataTransform";
 
-import { useHttp } from "../hooks/http.hook";
-import { _apiBase, _apiKey } from "../api/api";
+import { useHttp } from "../utils/hooks/http.hook";
+import { _apiBase, _apiKey } from "../utils/api/api";
 
 const initialState: DetailPageInitialState = {
     movieDetailFetchStatus: 'idle',
@@ -36,7 +36,7 @@ export const getCast = createAsyncThunk(
     async ({ mediaType, movieId }: { mediaType?: MediaType, movieId?: string }) => {
         const { request } = useHttp();
         const res = await request(`${_apiBase}${mediaType}/${movieId}/credits?api_key=${_apiKey}&language=en-US`);
-        return res.cast.map((items: any) => transformCast(items, mediaType));
+        return res.cast.sort((a: any, b: any) => b.popularity - a.popularity).map((items: any) => transformCast(items, mediaType)).slice(0, 10);
     }
 );
 
@@ -54,7 +54,7 @@ export const getRecommendations = createAsyncThunk(
     async ({ mediaType, movieId }: { mediaType?: MediaType, movieId?: string }) => {
         const { request } = useHttp();
         const res = await request(`${_apiBase}${mediaType}/${movieId}/recommendations?api_key=${_apiKey}&language=en-US&page=1`);
-        return res.results.map((items: any) => transformFetch(items, mediaType));
+        return res.results.map((items: any) => transformFetch(items, mediaType)).slice(0, 10);
     }
 );
 

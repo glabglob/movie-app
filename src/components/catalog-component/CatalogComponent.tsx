@@ -1,16 +1,18 @@
-import { Film } from '../../interfaces/interfaces';
+import { MediaType } from '../../utils/types/types';
 
 import { useEffect } from 'react';
+import { GridLoader } from 'react-spinners';
+
+import { useAppDispatch } from '../../utils/hooks/useAppDispatch';
+import { useAppSelector } from '../../utils/hooks/useAppSelector';
+import { Link } from 'react-router-dom';
+import { getPaginateResult } from '../../slices/pagitaneSlice';
+
 import ReactPaginate from 'react-paginate';
 import MovieCard from '../movie-card/MovieCard';
 
-import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { useAppSelector } from '../../hooks/useAppSelector';
-import { useParams } from 'react-router-dom';
 
 import './catalogComponent.scss';
-import { getPaginateResult } from '../../slices/pagitaneSlice';
-import { MediaType } from '../../types/types';
 
 interface CatalogComponentProps {
     itemsPerPage: number
@@ -18,8 +20,6 @@ interface CatalogComponentProps {
 }
 
 const CatalogComponent: React.FC<CatalogComponentProps> = (props: CatalogComponentProps) => {
-
-    const { id } = useParams<any>();
 
     const dispatch = useAppDispatch();
     const {
@@ -35,23 +35,32 @@ const CatalogComponent: React.FC<CatalogComponentProps> = (props: CatalogCompone
 
     const handlePageClick = (event: any) => {
         dispatch(getPaginateResult({ mediaType: props.type, pageNumber: `${event.selected + 1}` }));
+        window.scrollTo(0, 0);
     };
 
     return (
         <section className='section catalog'>
             <div className="catalog__items">
                 {
-                    paginateResult.map((film, i) => (
-                        <MovieCard
-                            key={i}
-                            image={
-                                (!film.cover) ?
-                                    `https://image.tmdb.org/t/p/original${film.poster}` :
-                                    `https://image.tmdb.org/t/p/original${film.cover}`
-                            }
-                            title={film.title}
-                        />
-                    ))
+                    (paginateResultFetchStatus !== 'idle') ?
+                        <GridLoader
+                            color='#582904'
+                            cssOverride={{
+                                margin: '0 auto'
+                            }}
+                        /> :
+                        paginateResult.map((item, i) => (
+                            <Link to={`/${item.mediaType}/${item.id}`} key={i}>
+                                <MovieCard
+                                    image={
+                                        (!item.cover) ?
+                                            `https://image.tmdb.org/t/p/original${item.poster}` :
+                                            `https://image.tmdb.org/t/p/original${item.cover}`
+                                    }
+                                    title={item.title}
+                                />
+                            </Link>
+                        ))
                 }
             </div>
             <ReactPaginate
@@ -77,78 +86,3 @@ const CatalogComponent: React.FC<CatalogComponentProps> = (props: CatalogCompone
 }
 
 export default CatalogComponent;
-
-
-
-//   const handlePageClick = (page) => {
-//     dispatch(fetchData(page.selected + 1));
-//   };
-
-//   return (
-//     <div>
-//       <ul>
-//         {data.map((item) => (
-//           <li key={item.id}>{item.name}</li>
-//         ))}
-//       </ul>
-//       <ReactPaginate
-//         pageCount={totalPages}
-//         onPageChange={handlePageClick}
-//         containerClassName={'pagination'}
-//         activeClassName={'active'}
-//       />
-//     </div>
-//   );
-// };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const myComponentSlice = createSlice({
-//   name: 'myComponent',
-//   initialState,
-//   reducers: {},
-//   extraReducers: (builder) => {
-//     builder
-//       .addCase(fetchData.pending, (state) => {
-//         state.isLoading = true;
-//       })
-//       .addCase(fetchData.fulfilled, (state, action) => {
-//         state.isLoading = false;
-//         state.data = action.payload.data;
-//         state.totalPages = action.payload.totalPages;
-//         state.currentPage = action.payload.currentPage;
-//         state.error = null;
-//       })
-//       .addCase(fetchData.rejected, (state, action) => {
-//         state.isLoading = false;
-//         state.error = action.payload.error;
-//       });
-//   },
-// });
-

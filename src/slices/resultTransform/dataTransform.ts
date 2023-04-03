@@ -1,5 +1,5 @@
-import { Film } from "../../interfaces/interfaces"
-import { MediaType } from "../../types/types"
+import { Film } from "../../utils/interfaces/interfaces"
+import { MediaType } from "../../utils/types/types"
 
 export const transformFetch = (obj: any, mediaType?: MediaType): Film | any => {
     return {

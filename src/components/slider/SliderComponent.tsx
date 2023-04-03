@@ -19,7 +19,7 @@ const SliderComponent: React.FC<SliderComponentProps> = (props: SliderComponentP
         settings = {
             slidesToShow: 5,
             slidesToScroll: 1,
-            swipe: true,
+            swipe: false,
             ...settings,
             responsive: [
                 {
@@ -27,6 +27,7 @@ const SliderComponent: React.FC<SliderComponentProps> = (props: SliderComponentP
                     settings: {
                         slidesToShow: 3,
                         slidesToScroll: 1,
+                        swipe: true,
                     },
                 },
                 {
@@ -34,13 +35,15 @@ const SliderComponent: React.FC<SliderComponentProps> = (props: SliderComponentP
                     settings: {
                         slidesToShow: 2,
                         slidesToScroll: 1,
+                        swipe: true,
                     },
                 },
                 {
-                    breakpoint: 321,
+                    breakpoint: 391,
                     settings: {
                         slidesToShow: 1,
                         slidesToScroll: 1,
+                        swipe: true,
                     },
                 }
             ]
@@ -69,7 +72,7 @@ const SliderComponent: React.FC<SliderComponentProps> = (props: SliderComponentP
                     },
                 },
                 {
-                    breakpoint: 480,
+                    breakpoint: 391,
                     settings: {
                         slidesToShow: 1,
                         slidesToScroll: 1,
