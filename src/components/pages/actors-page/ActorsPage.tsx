@@ -1,9 +1,9 @@
-import { MediaType } from '../../../types/types';
+import { MediaType } from '../../../utils/types/types';
+
+import { Helmet } from 'react-helmet';
 
 import AppContainer from '../../container/AppContainer';
 import CatalogComponent from '../../catalog-component/CatalogComponent';
-
-import './actorsPage.scss';
 
 interface ActorsPageProps {
     type: MediaType
@@ -11,16 +11,22 @@ interface ActorsPageProps {
 
 const ActorsPage: React.FC<ActorsPageProps> = (props: ActorsPageProps) => {
     return (
-        <main>
-            <section className='page__hero'>
+        <>
+            <Helmet>
+                <meta name="description" content="Actors list" />
+                <title>Actors list</title>
+            </Helmet>
+            <main>
+                <section className='page__hero'>
+                    <AppContainer>
+                        <h2 className='page__hero-title'>actors</h2>
+                    </AppContainer>
+                </section>
                 <AppContainer>
-                    <h2 className='page__hero-title'>actors</h2>
+                    <CatalogComponent itemsPerPage={24} type={'person'} />
                 </AppContainer>
-            </section>
-            <AppContainer>
-                <CatalogComponent itemsPerPage={24} type={'person'}/>
-            </AppContainer>
-        </main>
+            </main>
+        </>
     );
 }
 

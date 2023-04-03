@@ -1,12 +1,12 @@
-import { ActorPageInitialState, DetailPageInitialState, KnownFor } from "../interfaces/slicesInterfaces";
-import { MediaType } from "../types/types";
+import { ActorPageInitialState } from "../utils/interfaces/slicesInterfaces";
+import { MediaType } from "../utils/types/types";
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { transformKnownFor, transformActorDetails } from "./resultTransform/actorsData";
 
-import { useHttp } from "../hooks/http.hook";
-import { _apiBase, _apiKey } from "../api/api";
+import { useHttp } from "../utils/hooks/http.hook";
+import { _apiBase, _apiKey } from "../utils/api/api";
 
 const initialState: ActorPageInitialState = {
     knownForFetchStatus: 'idle',
@@ -29,7 +29,7 @@ export const getKnownFor = createAsyncThunk(
     async ({ mediaType, personId }: { mediaType?: MediaType, personId?: string }) => {
         const { request } = useHttp();
         const res = await request(`${_apiBase}/person/${personId}/combined_credits?api_key=${_apiKey}&language=en-US`);
-        const filteredResult = res.cast.filter((item: any) => item.popularity > 100).slice(0, 20);
+        const filteredResult = res.cast.sort((a: any, b: any) => b.vote_average - a.vote_average).slice(0, 15);
         return filteredResult.map((items: any) => transformKnownFor(items, mediaType));
     }
 );

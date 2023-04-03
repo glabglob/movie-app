@@ -6,4 +6,15 @@
 
 .trailer__cover {
     max-height: 200px;
+    cursor: pointer;
+    transition: transform 150ms ease;
+
+    &:hover {
+        transform: scale(1.05);
+        cursor: pointer;
+    }
+
+    &:active {
+        transform: scale(1);
+    }
 }

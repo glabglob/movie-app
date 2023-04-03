@@ -4,6 +4,16 @@
     padding: 20px 0px;
     cursor: pointer;
     margin: 0 auto;
+    transition: transform 150ms ease;
+
+    &:hover {
+        transform: scale(1.05);
+        cursor: pointer;
+    }
+
+    &:active {
+        transform: scale(1);
+    }
 
     @media screen and (max-width: 1199.98px) {
         padding: 20px 40px;

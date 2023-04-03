@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import AppContainer from '../../container/AppContainer';
@@ -9,14 +9,11 @@ import './header.scss';
 
 const Header: React.FC = () => {
 
-    //smart header
     const [userScrollPosition, setUserScrollPosition] = useState(0);
     const [includeHide, setIncludeHide] = useState(false);
     const defaultOffset = 100;
 
-    //menu
     const [menuActive, setMenuActive] = useState(false);
-
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
@@ -46,11 +43,10 @@ const Header: React.FC = () => {
 
         <header className={`header ${includeHide ? 'hide-header' : ''}`}>
             <AppContainer>
-                {/* logo img */}
-                <NavLink to={'/home'} className='header__logo'>
-                    <img src={logo} alt="Logo" className='header__logo' />
+                <NavLink to={'/'} className='header__logo'>
+                    <img src={logo} alt="Logo" className='header__logo-img' />
+                    <p className='header__logo-text'>Movie App</p>
                 </NavLink>
-                {/* burger menu */}
                 <div className={`header__navigation-menu ${menuActive ? 'active-menu' : ''}`}
                     onClick={handleMenuClick}
                 >
@@ -58,7 +54,6 @@ const Header: React.FC = () => {
                     <span></span>
                     <span></span>
                 </div>
-                {/* navigation */}
                 <nav className={`header__navigation ${menuActive ? 'active-menu' : ''}`}>
                     <ul className="header__navigation-list">
                         <li className='header__navigation-list_item'>
@@ -84,7 +79,6 @@ const Header: React.FC = () => {
                         </li>
                     </ul>
                 </nav>
-                {/* search form */}
                 <SearchBar />
             </AppContainer>
         </header>

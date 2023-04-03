@@ -1,11 +1,14 @@
-import { MediaType } from "../../types/types";
-import { Cast, Trailer, TransformObj } from "../../interfaces/slicesInterfaces";
+import { MediaType } from "../../utils/types/types";
+import { Cast, Trailer, TransformObj } from "../../utils/interfaces/slicesInterfaces";
 
 export const transformDetails = (obj: any): TransformObj => {
     return {
         id: obj.id,
         title: obj.title || obj.name,
         description: obj.overview,
+        tagline: obj.tagline,
+        rating: obj.vote_average,
+        homepage: obj.homepage,
         cover: obj.backdrop_path,
         poster: obj.poster_path,
         genres: obj.genres,
@@ -32,6 +35,7 @@ export const transformCast = (obj: any, mediaType?: MediaType): Cast => {
         name: obj.name,
         charName: obj.character,
         cover: obj.profile_path,
+        popularity: obj.popularity
     };
 };
 

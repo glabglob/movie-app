@@ -47,6 +47,8 @@ export interface ActorPageInitialState {
 export interface SeasonInitialState {
     seasonFetchStatus: 'idle' | 'pending' | 'failed',
     season: Season,
+    episodeFetchStatus: 'idle' | 'pending' | 'failed',
+    episode: Episode
 }
 
 export interface SearchResultInitialState {
@@ -58,6 +60,9 @@ export interface TransformObj {
     id?: number,
     title?: string,
     description?: string,
+    tagline?: string,
+    homepage?: string,
+    rating?: number,
     poster?: string,
     cover?: string,
     genres?: Genre[],
@@ -87,6 +92,7 @@ export interface Cast {
     name: string,
     charName: string,
     cover: string,
+    popularity: number
 }
 
 export interface Genre {
@@ -111,12 +117,12 @@ export interface Season {
 }
 
 export interface Episode {
-    id: number,
-    title: string,
-    description: string,
-    date: string,
-    poster: string,
-    episodeNumber: number,
+    id?: number,
+    title?: string,
+    description?: string,
+    date?: string,
+    poster?: string,
+    episodeNumber?: number,
 }
 
 export interface Actor {

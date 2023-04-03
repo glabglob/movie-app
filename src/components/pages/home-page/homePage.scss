@@ -1,19 +1,27 @@
 h2 {
-    font-size: 35px;
+    font-size: 40px;
+    line-height: 54%;
     font-weight: 700;
     text-transform: uppercase;
     color: #ff0000;
 
+    span {
+        color: #fff;
+    }
+
     @media screen and (max-width: 991.98px) {
-        font-size: 30px;
+        font-size: 32px;
+        line-height: 44%;
     }
 
     @media screen and (max-width: 479.98px) {
-        font-size: 25px;
+        font-size: 24px;
+        line-height: 32%;
     }
 
     @media screen and (max-width: 390.98px) {
         font-size: 20px;
+        line-height: 28%;
     }
 }
 
@@ -31,6 +39,6 @@ h2 {
     }
 }
 
-.remove {
-    display: none;
+.hero__trending {
+    padding-bottom: 20px;
 }

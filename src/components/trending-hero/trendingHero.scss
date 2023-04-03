@@ -5,7 +5,7 @@
 
     h2 {
         letter-spacing: 2px;
-        padding: 23px 0px 20px 0px;
+        padding: 33px 0px 30px 0px;
     }
 
     .trendings__content {
@@ -43,7 +43,11 @@
             color: #fff;
 
             @media screen and (max-width: 991.98px) {
-                margin: 0px 50px 0px 50px;
+                margin: 0px 50px 0px 100px;
+            }
+
+            @media screen and (max-width: 390.98px) {
+                margin: 0 auto;
             }
         }
 
@@ -52,44 +56,42 @@
             width: 100%;
             font-weight: 700;
             font-size: 40px;
-            line-height: 36px;
+            line-height: 35px;
             padding: 20px 0px;
             letter-spacing: 2px;
             text-overflow: ellipsis;
             -webkit-line-clamp: 1;
-            -webkit-box-orient: vertical;
+            -webkit-box-orient: horizontal;
             overflow: hidden;
+            text-shadow: 2px 0 2px #151515, 0 2px 2px #151515, -2px 0 2px #151515, 0 -2px 2px #151515;
 
             @media screen and (max-width: 991.98px) {
-                font-size: 25px;
-                line-height: 16px;
+                font-size: 24px;
+                line-height: 25px;
             }
 
             @media screen and (max-width: 479.98px) {
                 font-size: 20px;
-                line-height: 0px;
+                line-height: 25px;
             }
-
-            // @media screen and (max-width: 390.98px) {
-            //     font-size: 18px;
-            // }
         }
 
         &-description {
             display: -webkit-box;
             width: 100%;
-            font-size: 20px;
-            line-height: 20px;
+            font-size: 18px;
+            line-height: 28px;
             text-overflow: ellipsis;
             white-space: normal;
             letter-spacing: 1px;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
+            text-shadow: 2px 0 2px #151515, 0 2px 2px #151515, -2px 0 2px #151515, 0 -2px 2px #151515;
 
             @media screen and (max-width: 991.98px) {
                 font-size: 16px;
-                line-height: 16px;
+                line-height: 20px;
             }
         }
     }

@@ -1,0 +1,112 @@
+.not__found {
+
+    &-text {
+        font-size: 35px;
+        font-weight: 700;
+        text-align: center;
+        color: #ff0000;
+
+        @media screen and (max-width: 991.98px) {
+            font-size: 30px;
+        }
+
+        @media screen and (max-width: 479.98px) {
+            font-size: 25px;
+        }
+    }
+
+    &-page {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: space-around;
+        padding-top: 200px;
+
+        @media screen and (max-width: 991.98px) {
+            padding-top: 150px;
+        }
+
+        @media screen and (max-width: 479.98px) {
+            padding-top: 70px;
+        }
+
+        .title {
+            font-size: 250px;
+            -webkit-text-stroke: 4px #151515;
+            margin-bottom: 40px;
+
+            @media screen and (max-width: 991.98px) {
+                font-size: 200px;
+            }
+
+            @media screen and (max-width: 479.98px) {
+                font-size: 100px;
+            }
+        }
+
+        .subtitle {
+            -webkit-text-stroke: 2px #151515;
+            margin-bottom: 20px;
+
+            @media screen and (max-width: 991.98px) {
+                -webkit-text-stroke: 1px #151515;
+            }
+        }
+
+        .description {
+            -webkit-text-stroke: 2px #151515;
+            margin-bottom: 30px;
+            color: #888888;
+
+            @media screen and (max-width: 991.98px) {
+                font-size: 30px;
+                -webkit-text-stroke: 1px #151515;
+            }
+        }
+
+        .link {
+            display: block;
+            margin: 0 auto;
+            max-width: 550px;
+            text-align: center;
+            padding: 10px;
+            border: 2px solid #ff0000;
+            border-radius: 24px;
+            background-color: #151515;
+            transition: transform 150ms ease;
+
+            @media screen and (max-width: 991.98px) {
+                font-size: 30px;
+            }
+
+            &:hover {
+                transform: scale(1.02);
+                cursor: pointer;
+            }
+
+            &:active {
+                transform: scale(1);
+            }
+
+            @media screen and (max-width: 479.98px) {
+                display: none;
+            }
+        }
+    }
+
+
+}
+
+
+
+
+
+
+
+// @media screen and (max-width: 390.98px) {
+//     width: 360px
+// }
+
+// @media screen and (max-width: 320.98px) {
+//     width: 310px
+// }
