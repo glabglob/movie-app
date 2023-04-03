@@ -1,46 +1,179 @@
-# Getting Started with Create React App
+# Movie App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
+![alt text](./src/img/cover.png)
 
-## Available Scripts
+If you  want to try it,  follow this link: [Movie App](https://glabglob.github.io/movie-app/)
 
-In the project directory, you can run:
+## Usage
 
-### `npm start`
+This is a responsive movie app.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### So when you open my app you will be redirected to the home page
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+![alt text](./src/img/fullSizeHomePage.png)
 
-### `npm test`
+#### The home page has several sections:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+`TRENDING` 
 
-### `npm run build`
+![alt text](./src/img/trending.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+`IN CINEMA`            
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![alt text](./src/img/inCinema.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`WHATS POPULAR`
 
-### `npm run eject`
+![alt text](./src/img/whatsPopular.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+`TOP RATED TV'S`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![alt text](./src/img/topRatedTvS.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+`TOP RATED MOVIES`
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+![alt text](./src/img/topRatedMovies.png)
 
-## Learn More
+Each section has a slider that you can scroll with the side buttons.
+On the mobile version, scrolling using slides is also available.
+You can also click on each element of the slider, and go to the page of the movie or series.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Movie or Tv page
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![alt text](./src/img/moieTvPage.png)
+
+#### The movie or tv page has several sections:
+
+`TOP CASTS` - you will be redirected to the actor's page.
+
+![alt text](./src/img/topCasts.png)
+
+`TRAILERS` - a modal window will open with a trailer from YouTube.
+
+![alt text](./src/img/trailers.png)
+
+![alt text](./src/img/tailersModal.png)
+
+`SEASONS` **only on tv page** - you will be redirected to the season page.
+
+![alt text](./src/img/seasons.png)
+
+`WHATS POPULAR` - you will be redirected to the page of the movie or series.
+
+![alt text](./src/img/whatsPopular.png)
+
+`RECOMMENDATIONS` - you will be redirected to the page of the movie or series.
+
+![alt text](./src/img/reacommendations.png)
+
+Each section has a slider that you can scroll with the swipe or side buttons.
+You can also click on each element of the slider.
+
+### Actor page
+
+![alt text](./src/img/fullSizeCctorPage.png)
+
+#### Here you can see:
+
+`ACTOR CARD` - pesron card.
+
+![alt text](./src/img/acrorCard.png)
+
+`KNOWN FOR` - list of movies for which this person became famous, every card is clickable.
+
+![alt text](./src/img/knownFor.png)
+
+### Season page
+
+![alt text](./src/img/fullSizeSeasonPage.png)
+
+#### Here you can see:
+
+`SEASON CARD` - season card.
+
+![alt text](./src/img/seasonCard.png)
+
+`EPISODES LIST` - list of episodes, every card is clickable.
+
+![alt text](./src/img/seasonEpisodes.png)
+
+### Episode page
+
+![alt text](./src/img/episodePage.png)
+
+#### Here you can see:
+
+`EPISODE CARD` - episode card.
+
+![alt text](./src/img/episodeCard.png)
+
+### Movies page
+
+![alt text](./src/img/moviesPage.png)
+
+#### Here you can see:
+
+`FILMS LIST` - list of films, with pagination, every card is clickable.
+
+### Tv Shows page
+
+![alt text](./src/img/tvsPages.png)
+
+#### Here you can see:
+
+`TV SHOWS LIST` - list of series, with pagination, every card is clickable.
+
+### Actors page
+
+![alt text](./src/img/actorsPage.png)
+
+#### Here you can see:
+
+`ACTORS LIST` - list of actors, with pagination, every card is clickable.
+
+### SeacrhPage
+
+![alt text](./src/img/searchPage.png)
+
+#### Here you can see:
+
+`MOVIES LIST` - films and series you were looking for, every card is clickable.
+
+### SeacrhBar
+
+![alt text](./src/img/searchBar.png)
+
+#### Here you can see:
+
+`MOVIES LIST` - films and series you were looking for, every card is clickable.
+
+You can scroll SeacrhBar results.
+If you press enter on keyboard, you will be redirected to the **SeacrhPage**
+
+## API
+
+API wich i used [**TheMovieDataBase**](https://www.themoviedb.org/)
+
+## Libraries
+
+[**React**](https://github.com/facebook/create-react-app)
+
+[**sass**](https://github.com/sass/dart-sass)
+
+[**Redux**](https://github.com/reduxjs/redux)
+
+[**Redux Toolkit**](https://github.com/reduxjs/redux-toolkit)
+
+[**React Router Dom**](https://reactrouter.com/en/main)
+
+[**React Paginate**](https://github.com/AdeleD/react-paginate#readme)
+
+[**React Slick**](https://react-slick.neostack.com/)
+
+[**ReactSpinners**](https://www.davidhu.io/react-spinners/)
+
+[**React Helmet**](https://github.com/nfl/react-helmet)
+
+## Design idea 
+
+My own version

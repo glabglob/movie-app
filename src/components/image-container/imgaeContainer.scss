@@ -1,0 +1,17 @@
+.movie__card {
+    &-img_container {
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+        background-color: #343434;
+        overflow: hidden;
+        background: url('./movieBg.png') center no-repeat;
+    }
+
+    &-img {
+        width: 100%;
+        height: 100%;
+        min-height: 200px;
+        object-fit: cover;
+    }
+}

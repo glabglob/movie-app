@@ -1,0 +1,53 @@
+.page__hero {
+    padding-top: 57px;
+
+    &-title {
+        padding-top: 25px;
+        margin-top: 0px;
+        font-size: 40px;
+        letter-spacing: 3px;
+        line-height: 36px;
+        display: -webkit-box;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+
+        @media screen and (max-width: 1199.98px) {
+            font-size: 35px;
+        }
+
+        @media screen and (max-width: 991.98px) {
+            font-size: 30px;
+        }
+
+        @media screen and (max-width: 479.98px) {
+            font-size: 20px;
+        }
+    }
+}
+
+.search__list {
+    padding-top: 150px;
+}
+
+.no__results {
+    margin: 0 auto;
+
+    h2 {
+        font-size: 60px;
+        text-align: center;
+
+        @media screen and (max-width: 1199.98px) {
+            font-size: 45px;
+        }
+
+        @media screen and (max-width: 991.98px) {
+            font-size: 30px;
+        }
+
+        @media screen and (max-width: 479.98px) {
+            font-size: 20px;
+        }
+    }
+}
