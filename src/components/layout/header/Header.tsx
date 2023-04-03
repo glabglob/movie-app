@@ -43,7 +43,7 @@ const Header: React.FC = () => {
 
         <header className={`header ${includeHide ? 'hide-header' : ''}`}>
             <AppContainer>
-                <NavLink to={'/'} className='header__logo'>
+                <NavLink to={'/movie-app'} className='header__logo'>
                     <img src={logo} alt="Logo" className='header__logo-img' />
                     <p className='header__logo-text'>Movie App</p>
                 </NavLink>

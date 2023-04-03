@@ -37,7 +37,7 @@ const Body: React.FC = () => {
                 </div>
             }>
                 <Routes>
-                    <Route path='/' element={<HomePage />}></Route>
+                    <Route path='/movie-app' element={<HomePage />}></Route>
 
                     <Route path='/movie' element={<MoviesPage type='movie' />}></Route>
                     <Route path='/movie/:id' element={<MoviePage type='movie' />}></Route>
